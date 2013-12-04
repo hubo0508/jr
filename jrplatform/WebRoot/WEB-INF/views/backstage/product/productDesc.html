@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    
+    <script src="../js/jquery-1.7.js" type="text/javascript"></script> 
+          
+    <script src="../js/navigation.button.js" type="text/javascript"></script>
+    
+    <script src="../resources/ckeditor/ckeditor.js" type="text/javascript"></script>
+        
+    <link href="../css/shared.css" rel="stylesheet" type="text/css" />
+    <link href="../css/linksButton.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<style>
+	body{height:100%}
+	span.cke_wrapper cke_ltr,table.cke_editor, td.cke_contents, span.cke_skin_kama, span.cke_wrapper, span.cke_browser_webkit{
+    	height: 100%!important;
+	}
+</style>
+
+<body sroll="no">
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" class="title_t" height="100%">
+    	<tr>
+        	<td colspan="2">
+            	<div class="labelDiv">    	
+                    <div class="labelTitle">产品滚动管理</div>
+                    <div class="g_gray_line workTitleLine"></div>
+                    
+                    <div class="linksButton">
+                       <div class="btn"><span class="hline"></span><div class="c">
+                       		<span class="icon check">&nbsp;</span><span class="text">保存</span>
+                       </div></div> 
+                       <div class="btn"><span class="hline"></span><div class="c">
+                       		<span class="icon refresh">&nbsp;</span><span class="text">刷新</span>
+                       </div></div>     
+                    </div> 
+                </div>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+            	<textarea class="ckeditor" name="editor2"></textarea>
+            </td>
+            <td width="20"></td>
+        </tr>
+    </table>
+    
+   
+   
+</body>
+<script type="text/javascript">
+	
+	$(function(){				   
+		initialSettings();
+		
+		var oCKeditor = CKEDITOR.replace( 'editor2', {
+				toolbar: [
+					['Preview','-','Templates'],
+					['Cut','Copy','Paste','PasteText','PasteFromWord','-','SpellChecker', 'Scayt'],
+					['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+					['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select'],
+					'/',
+					['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+					['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
+					['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+					['BidiLtr', 'BidiRtl'],
+					['Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
+					'/',
+					['Styles','Format','Font','FontSize'],
+					['TextColor','BGColor'],
+					['ShowBlocks']
+				]
+			});
+		  
+		  oCKeditor.on('instanceReady',function(event)
+			{
+			   var editor=event.editor;
+			   setTimeout(function(){     //延时加载
+					   if(!editor.element)
+					   {
+							setTimeout(arguments.callee,1);
+							return;
+					   }
+					   event.removeListener('instanceReady',this.callee);
+					   if(editor.name=='editor2')
+					   {
+							editor.resize(editor.container.getStyle('height'),CKEDITOR.document.getById('cke_'+'editor2').getParent().$.offsetHeight);
+						}
+					},0);
+			},null,null,9999);
+	});
+	
+	function logInit(){
+		$("body").append('<div id="outlog" style="height:100%; width:200px; position:absolute; background-color:#999;"></div>');	
+	}
+	
+	function initialSettings(){
+		$(".linksButton").navigationbutton("#FF002B", "#339E35",{callback: clickButtonCallback});
+	}
+	
+	function clickButtonCallback(text){
+		if(text == "刷新"){
+			window.parent.popup({ 
+				message: 'popup_alert', 
+				content: text,
+				callback:function(type){
+					//确认处理	
+					return true;
+				},css: {width: '250'} 
+			});	
+			
+			return;
+		}
+		
+		if(text == "新增"){
+			window.parent.popup({ 
+				message: 'popup_links', 
+				content: "./product/product_add.edit.html",
+				title:"新增设备",
+				css: {width: '840px',height:'80%'},
+				pw_id :"logs_add",
+				callback:function(type){
+					return true;
+				}
+			});	
+		}	
+
+	}
+
+	
+</script>
+
+</html>
