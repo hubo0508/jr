@@ -1,0 +1,13 @@
+@charset "utf-8";
+/* CSS Document */
+
+.newtitle{width:198px; height:60px; display:block; background-image:url(../img/news.png); background-repeat:no-repeat; margin-left:20px; margin-top:20px;}
+.newscontent{ margin-top:40px;}
+.newscontent .row{ height:200px; width:100%; padding:0.5em 0.5em; margin-top:40px;}
+.newscontent .row div{ height:200px;}
+.newscontent .row .img{float:left; height:100%; width:300px; border:1px solid #CCC}
+.newscontent .row .text{height:100%; margin-left:330px; position:relative}
+.newscontent .row .text .time{ position:absolute; right:0px; top:170px; color:#000}
+.newscontent .row a{ font-size:20px; cursor:pointer; text-decoration:none; color:#000}
+.newscontent .row a:hover{color:#FF4400}
+.newscontent .row span{ color:#999}
