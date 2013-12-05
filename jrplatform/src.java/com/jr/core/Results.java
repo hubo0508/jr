@@ -13,6 +13,8 @@ public class Results {
 	
 	public final static String SAVEERROR = "保存失败，请稍后再试！";
 	
+	public final static String DELETEERROR = "删除失败，请稍后再试！";
+	
 	public static Results SUCCESS = new Results(true);
 	public static Results FAILURE = new Results(false);
 	public final static String SUCCESSSTR = "SUCCESS";

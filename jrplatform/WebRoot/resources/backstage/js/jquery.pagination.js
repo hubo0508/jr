@@ -151,7 +151,7 @@ jQuery.fn.pagination = function(maxentries, opts){
 			{
 				appendItem("jumppage",{text:opts.jump_text, classes:"next"});
 				panel.append("<span><input id='jumppage' type='text'/></span>");			
-				panel.append("<span class='jump_span'>共"+np+"页&nbsp;/&nbsp;跳转至</span>");
+				panel.append("<span class='jump_span'>共"+np+"页&nbsp;,共"+maxentries+"条数据/&nbsp;跳转至</span>");
 			}
 			
 			// Generate "Next"-Link Ђһҳ

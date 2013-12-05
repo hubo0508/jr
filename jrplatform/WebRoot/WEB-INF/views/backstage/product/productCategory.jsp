@@ -34,8 +34,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="${pageContext.request.contextPath}/resources/backstage/js/jquery.bgiframe.min.js" type="text/javascript"></script>
 	<link href="${pageContext.request.contextPath}/resources/backstage/css/loading.css" type="text/css" rel="stylesheet"/>
     
-    <script src="<%=request.getContextPath()%>/resources/backstage/js/jquery-ui.min.js" type="text/javascript"></script>
-
+    <!-- <script src="<%=request.getContextPath()%>/resources/backstage/js/jquery-ui.min.js" type="text/javascript"></script>
+ -->
 </head>
 
 <style>
@@ -154,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			'<tr>'+
 			'    <th width="30">序号</th>'+
             '    <th width="30" height="30" class="c">选择</th>'+
-            '    <th width="65" class="c">编辑</th>'+
+            '    <th width="65" class="c">操作</th>'+
             '    <th width="300" class="c">类别名称</th>'+
             '    <th class="l">描述</th>'+
             '</tr>';

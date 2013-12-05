@@ -40,7 +40,7 @@ public class ProductCategoryController extends BaseController {
 	}
 
 	@RequestMapping(value = "/productCategoryEditJump", method = RequestMethod.GET)
-	public String productCategoryAddJump(HttpServletRequest request,
+	public String productCategoryEditJump(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam
 			String id) {
 
@@ -90,14 +90,14 @@ public class ProductCategoryController extends BaseController {
 	@RequestMapping(value = "/deleteByIds", method = RequestMethod.POST)
 	public void deleteByIds(HttpServletResponse response, @RequestParam
 	String ids) {
-
+		
 		try {
 			Results r = productCategoryService
 					.deleteByIds(Util.idsToArray(ids));
 			outJsonString(response, Json.toJson(r));
 		} catch (Throwable e) {
-			log.error(e);
-			outJsonString(response, Json.oJson(Results.SAVEERROR, false));
+			log.error(e.getMessage(),e);
+			outJsonString(response, Json.oJson(Results.DELETEERROR, false));
 		}
 	}
 }

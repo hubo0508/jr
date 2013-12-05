@@ -127,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 <script type="text/javascript">
 	
-	var page_size = 8;
+	var page_size = 30;
 	
 	$(function(){	
 		getList(page_size,1);			   
@@ -199,8 +199,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			_table += '<tr>'+
 					'   <td class="c">'+seq+'</td>'+
-					'	<td class="c"><input type="checkbox" /></td>'+
-					'	<td class="c">编辑</td>'+
+					'	<td class="c"><input type="checkbox" name="tdcb"/></td>'+
+	           		'   <td class="c"><span class="tablebtn" onclick="edit('+_id+')">编辑</span>&nbsp;<span class="tablebtn" onclick="deletes('+_id+')">删除</span></th>'+
 					'	<td class="c">'+_product_use+'</td>'+
 					'	<td class="c">'+_stock+'</td>'+
 					'	<td class="c">'+_product_category+'</td>'+
@@ -228,7 +228,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var _head ='<tr>'+
 			            '	<th width="30">序号</th>'+
 			            '    <th width="30" height="30" class="c">选择</th>'+
-			            '    <th width="65" class="c">编辑</th>'+
+			            '    <th width="65" class="c">操作</th>'+
 			            '    <th width="150" class="c">用途分类</th>'+
 			            '    <th width="55" class="c">库存</th>'+
 			            '    <th width="75" class="c">产品分类</th>'+
@@ -262,18 +262,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	
 	function clickButtonCallback(text){
-		if(text == "刷新"){
-			window.parent.popup({ 
-				message: 'popup_alert', 
-				content: text,
-				callback:function(type){
-					//确认处理	
-					return true;
-				},css: {width: '250'} 
-			});	
-			
-			return;
-		}
+		if(text == "刷新"){getList();return;}
 		
 		if(text == "新增"){
 			window.parent.popup({ 
@@ -287,13 +276,87 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});	
 		}	
-
+		
+		if(text == "删除")
+		{
+			var ids = "";
+			 $('input[name="tdcb"]:checked').each(function(){    
+		   		ids += $(this).attr("value")+",";
+		  	 });    
+		  	 if(ids.length == 0){
+		  	 	window.parent.alert("请选择数据！");	
+		  	 	return;
+		  	 }	
+			  
+			 window.parent.popup({ 
+				message: 'popup_alert', 
+				pw_confirm_display:true,
+				content: "确认删除选择数据？",
+				callback:function(type){
+					if(type == "confirm"){deleteByIds(ids)}
+					return true;
+				},
+				css: {width: '250'} 
+			 });
+		}
 	}
 	
+	function deleteByIds(ids){
+		ids = ids.substring(0,ids.length-1);
+		
+		$("#loading").css("display","block").css("background-color","#090").html("正在删除数据，请稍后！");
+		
+		$.ajax( {
+			type : "post",
+			url : "${pageContext.servletContext.contextPath}/product/deleteByIds",
+			dataType:"json",
+			data:"ids="+ids,
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+			success : function(msg) {
+				if((msg.success+"") == "true"){
+					$("#loading").css("display","block").css("background-color","#090").html("删除成功！");
+					getList(page_size,_page_index);
+				}else{
+					$("#loading").css("display","block").css("background-color","#F30").html(msg.message);
+					setTimeout(function(){
+						$("#loading").fadeOut();
+					},5000);
+				}
+			}
+		});
+	}
+	
+	function deletes(id){
+		window.parent.popup({ 
+			message: 'popup_alert', 
+			pw_confirm_display:true,
+			content: "确认删除数据？",
+			callback:function(type){
+				if(type == "confirm"){deleteByIds(id+",")} return true;
+			},
+			css: {width: '250'} 
+		 });
+		
+	}
+	
+	function edit(id){
+		window.parent.popup({ 
+				message: 'popup_links', 
+				content: "${pageContext.servletContext.contextPath}/product/productEditJump",
+				title:"编辑设备信息",
+				css: {width: '840px',height:'80%'},
+				pw_id :"productAdd_Edit_JUMP",
+				callback:function(type){
+					return true;
+				}
+			});	
+	}
+	var _page_index = 1;
 	function pageselectCallback(page_index, msg){
 		if(msg != undefined){
 			window.parent.alert(msg);
 		}else{
+			_page_index = page_index+1;
 			getList(page_size,page_index+1);
 		}
 		

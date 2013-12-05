@@ -1,8 +1,11 @@
 package com.jr.platform.product.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import com.jr.core.Page;
 import com.jr.core.Results;
 import com.jr.platform.product.service.ProductService;
 import com.jr.util.Json;
+import com.jr.util.Util;
 
 @Controller
 @RequestMapping("/product")
@@ -34,11 +38,29 @@ public class ProductController extends BaseController {
 		return "backstage/product/product";
 	}
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/productAddJump", method = RequestMethod.GET)
 	public String productAddJump(HttpServletRequest request) {
 		// request.setAttribute("productcate", (List)productCategoryService
 		// .queryProductCategoryList().getObject());
+
+		return "backstage/product/product_add.edit";
+	}
+
+	@RequestMapping(value = "/productEditJump", method = RequestMethod.GET)
+	public String productEditJump(HttpServletRequest request, @RequestParam
+	String id) {
+		try {
+			if (StringUtils.isNotEmpty(id)) {
+				Map<String, Object> c = productService.findById(Integer
+						.parseInt(id));
+				request.setAttribute("c", c);
+			} else {
+				request.setAttribute("error", "参数错误，请重新打开编辑页面！");
+			}
+		} catch (Throwable e) {
+			log.error(e.getMessage(), e);
+			request.setAttribute("error", Results.BUSY);
+		}
 
 		return "backstage/product/product_add.edit";
 	}
@@ -58,7 +80,7 @@ public class ProductController extends BaseController {
 					pageSize));
 			outJsonString(response, Json.toJson(r));
 		} catch (RuntimeException e) {
-			log.error(e.getMessage(),e);
+			log.error(e.getMessage(), e);
 			outJsonString(response, Json.oJson(Results.BUSY, false));
 		}
 
@@ -83,11 +105,12 @@ public class ProductController extends BaseController {
 	String temperature_range, @RequestParam
 	String coolant, @RequestParam
 	String work_mode, @RequestParam
-	String capacit, @RequestParam
+	String capacity, @RequestParam
 	String stock, @RequestParam
 	String taobao_links, @RequestParam
 	String features, @RequestParam
-	String range
+	String range, @RequestParam
+	String brand
 
 	) {
 
@@ -96,12 +119,25 @@ public class ProductController extends BaseController {
 					product_category, place_origin, model, material,
 					exterior_size, effective_volume, product_weight, voltage,
 					electric_current, power, energy, temperature_range,
-					coolant, work_mode, capacit, stock, taobao_links, features,
-					range);
+					coolant, work_mode, capacity, stock, taobao_links,
+					features, range, brand);
 			outJsonString(response, Json.toJson(r));
 		} catch (Throwable e) {
-			log.error(e.getMessage(),e);
+			log.error(e.getMessage(), e);
 			outJsonString(response, Json.oJson(Results.SAVEERROR, false));
+		}
+	}
+
+	@RequestMapping(value = "/deleteByIds", method = RequestMethod.POST)
+	public void deleteByIds(HttpServletResponse response, @RequestParam
+	String ids) {
+
+		try {
+			String r = productService.deleteByIds(Util.idsToArray(ids));
+			outJsonString(response, r);
+		} catch (Throwable e) {
+			log.error(e.getMessage(), e);
+			outJsonString(response, Json.oJson(Results.DELETEERROR, false));
 		}
 	}
 }

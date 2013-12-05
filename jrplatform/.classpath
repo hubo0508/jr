@@ -8,29 +8,32 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/activemq-4.0.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/asm-3.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/aspectjweaver-1.5.3.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/axis.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/axis-ant.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/axis.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/cglib-nodep-2.1_3.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/com.springsource.slf4j.api-1.6.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-beanutils.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-codec-1.4.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-collections-3.2.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-dbcp.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-dbcp-1.4.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-dbcp.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-fileupload-1.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-io-1.2.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-lang-2.4.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-logging.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-pool.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-pool-1.6.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-pool.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/flex-messaging-common.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/flex-messaging-core.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/flex-messaging-opt.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/flex-messaging-proxy.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/flex-messaging-remoting.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/gson-1.7.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hibernate-validator-4.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jackson-all-1.8.5.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jackson-jaxrs-1.0.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jcl-over-slf4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jdbcUtil.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json-lib-2.2-jdk15.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/junit-4.6.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/kaptcha-2.3.2.jar"/>
@@ -42,27 +45,26 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.asm-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.aspects-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.beans-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.context.support-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.context-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.context.support-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.core-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.expression-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.flex-1.0.0.RC2.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.instrument.tomcat-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.instrument-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.instrument.tomcat-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.jdbc-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.jms-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.orm-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.oxm-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.test-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.transaction-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.web-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.web.portlet-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.web.servlet-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.web.struts-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.web-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-api-1.5.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-log4j12-1.6.1.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-security-config-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-security-core-3.1.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-security-crypto-3.1.0.RELEASE.jar"/>
@@ -71,11 +73,9 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-test.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-web-3.0.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-webmvc-3.0.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/standard.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/validation-api-1.0.0.GA.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xalan.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-lang-2.4.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jdbcUtil.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/gson-1.7.1.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

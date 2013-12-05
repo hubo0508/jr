@@ -9,12 +9,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
 	
@@ -224,9 +218,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	function saveHandler(){
 		var _id               = "${c.id }";
+		
+		var _stock         = $("#stock").attr("value");//库存
+		if(_stock.length <=0){alert("库存不能为空！");return;}
+		if(isNaN(_stock)){alert("库存只能为数字！");return;}
+		var _taobao_links  = $("#taobao_links").attr("value");//淘宝链接
+		
 		var _product_name       = $("#product_name").attr("value");//设备名称
 		if(_product_name.length > 50){alert("设备名称字符长度应小于50字符！");return false;}
 		if(_product_name.length <= 0){alert("设备名称不能为空");return false;}
+		
+		var _brand = $("#brand").attr("value");
+		if(_brand.length > 50){alert("品牌字符长度应小于50字符！");return false;}
 		
 		var _device_type_id      = $("#device_type_id").val();//设备用途ID
 		var _product_category      = $("#product_category").attr("value");//类别
@@ -274,8 +277,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var _capacity      = $("#capacity").attr("value");//产能
 		if(_capacity.length > 50){alert("产能字符长度应小于50字符！");return false;}
 		
-		var _stock         = $("#stock").attr("value");//库存
-		var _taobao_links  = $("#taobao_links").attr("value");//淘宝链接
 		var _features = CKEDITOR.instances.features.getData();//产品特性
 		if(_features.length > 65535){alert("产品特性长度应小于65535字符！");return false;}
 		
@@ -288,7 +289,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			type : "post",
 			url : "${pageContext.servletContext.contextPath}/product/save",
 			dataType:"json",
-			data:"id="+_id+"&product_name="+_product_name+"&device_type_id="+_device_type_id+"&product_category="+_product_category+"&place_origin="+_place_origin+"&model="+_model+"&material="+_material+"&exterior_size="+_exterior_size+"&effective_volume="+_effective_volume+"&product_weight="+_product_weight+"&voltage="+_voltage+"&electric_current="+_electric_current+"&power="+_power+"&energy="+_energy+"&temperature_range="+_temperature_range+"&coolant="+_coolant+"&work_mode="+_work_mode+"&capacit="+_capacity+"&stock="+_stock+"&taobao_links="+_taobao_links+"&features="+_features+"&range="+_range,
+			data:"id="+_id+"&product_name="+_product_name+"&device_type_id="+_device_type_id+"&product_category="+_product_category+"&place_origin="+_place_origin+"&model="+_model+"&material="+_material+"&exterior_size="+_exterior_size+"&effective_volume="+_effective_volume+"&product_weight="+_product_weight+"&voltage="+_voltage+"&electric_current="+_electric_current+"&power="+_power+"&energy="+_energy+"&temperature_range="+_temperature_range+"&coolant="+_coolant+"&work_mode="+_work_mode+"&capacity="+_capacity+"&stock="+_stock+"&taobao_links="+_taobao_links+"&features="+_features+"&range="+_range+"&brand="+_brand,
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			success : function(msg) {
 				if((msg.success+"") == "true"){
