@@ -15,6 +15,10 @@
 
 	<!-- Forwards requests to the "/" resource to the "welcome" view -->
 	<mvc:view-controller path="/" view-name="index"/>
+	
+	<!-- 
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />  
+    --> 
 
 	<!-- Configures Handler Interceptors -->	
 	<mvc:interceptors>
@@ -34,6 +38,7 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources/ directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/device/**" location="/device/" />
 	
 	<!-- 
 	<mvc:exclude-mapping path="/"/>  
@@ -60,6 +65,7 @@
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     	<!-- one of the properties available; the maximum file size in bytes -->
     	<property name="maxUploadSize" value="1000000"/>
+    	<property name="defaultEncoding" value="UTF-8" />  
 	</bean>
 	
 	

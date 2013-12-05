@@ -111,7 +111,6 @@ public class ProductController extends BaseController {
 	String features, @RequestParam
 	String range, @RequestParam
 	String brand
-
 	) {
 
 		try {
@@ -131,7 +130,6 @@ public class ProductController extends BaseController {
 	@RequestMapping(value = "/deleteByIds", method = RequestMethod.POST)
 	public void deleteByIds(HttpServletResponse response, @RequestParam
 	String ids) {
-
 		try {
 			String r = productService.deleteByIds(Util.idsToArray(ids));
 			outJsonString(response, r);
