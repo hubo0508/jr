@@ -147,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="g_green_line"></div>
         <div class="bottom_navigation">
             <div id="close" onclick="closeHandler()">关闭</div>
-            <div id="save" onclick="saveHandler()">保存</div>
+            <div id="save" onclick="saveAllHandler()">保存</div>
         </div>
         <div class="g_green_line"></div>
     </div>
@@ -202,25 +202,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 	})
 	
-	function uploadImage(){
-		$.ajaxFileUpload({  
-			type : "post",
+	function saveAllHandler(){
+	
+		$("#loading").css("display","block").css("background-color","#090").html("正在保存，请稍后！");
+		
+		$.ajaxFileUpload({ 
 		    url:"${pageContext.servletContext.contextPath}/file/uploadImage?image=select_document",  
 		    secureuri:false,  
 		    fileElementId:'select_document',  
-		    dataType: 'json',  
-		    //data:"image=select_document",
-		    success: function (msg, status)
+		    dataType: 'json', 
+		    success: function (data, status)
 		    {
-		        if(json.indexOf('<pre>') != -1) {  
-		              json = json.substring(5, json.length-6);  
-		        }
-		        if(msg && (msg.success+"") == "true"){
-		            alert(msg.message);  
-		        }else{  
-		        	window.parent.alert(json.message);
-		        }  
-		    }  
+		    	var j = eval('(' + data+ ')');
+             	if(j.message != "" && j.message != undefined){
+             		saveHandler(j.message);
+             	}else{
+             		window.parent.alert(j.message);
+             	}
+		    },
+		    error: function (data, status, e)
+            {
+            	window.parent.alert(eval('(' + data+ ')').message);
+            }
 		});  
 	}
 
@@ -243,11 +246,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		});
 	}
 
-	function saveHandler(){
-		
-		uploadImage();
-		
-		return;
+	function saveHandler(image_url){
 	
 		var _id               = "${c.id }";
 		
@@ -315,13 +314,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var _range = CKEDITOR.instances.range.getData()//
 		if(_range.length > 65535){alert("产能字符长度应小于65535字符！");return false;}
 		
-		$("#loading").css("display","block").css("background-color","#090").html("正在保存，请稍后！");
-		
 		$.ajax({
 			type : "post",
 			url : "${pageContext.servletContext.contextPath}/product/save",
 			dataType:"json",
-			data:"id="+_id+"&product_name="+_product_name+"&device_type_id="+_device_type_id+"&product_category="+_product_category+"&place_origin="+_place_origin+"&model="+_model+"&material="+_material+"&exterior_size="+_exterior_size+"&effective_volume="+_effective_volume+"&product_weight="+_product_weight+"&voltage="+_voltage+"&electric_current="+_electric_current+"&power="+_power+"&energy="+_energy+"&temperature_range="+_temperature_range+"&coolant="+_coolant+"&work_mode="+_work_mode+"&capacity="+_capacity+"&stock="+_stock+"&taobao_links="+_taobao_links+"&features="+_features+"&range="+_range+"&brand="+_brand,
+			data:"id="+_id+"&product_name="+_product_name+"&device_type_id="+_device_type_id+"&product_category="+_product_category+"&place_origin="+_place_origin+"&model="+_model+"&material="+_material+"&exterior_size="+_exterior_size+"&effective_volume="+_effective_volume+"&product_weight="+_product_weight+"&voltage="+_voltage+"&electric_current="+_electric_current+"&power="+_power+"&energy="+_energy+"&temperature_range="+_temperature_range+"&coolant="+_coolant+"&work_mode="+_work_mode+"&capacity="+_capacity+"&stock="+_stock+"&taobao_links="+_taobao_links+"&features="+_features+"&range="+_range+"&brand="+_brand+"&image_url="+image_url,
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			success : function(msg) {
 				if((msg.success+"") == "true"){
@@ -343,6 +340,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 </script>
 </html>
+
 <script type="text/javascript">
 
 jQuery.extend({
@@ -477,17 +475,16 @@ jQuery.extend({
                 jQuery(io).unbind()
 
                 setTimeout(function()
-									{	try 
-										{
-											jQuery(io).remove();
-											jQuery(form).remove();	
-											
-										} catch(e) 
-										{
-											jQuery.handleError(s, xml, null, e);
-										}									
+					{	try 
+						{
+							jQuery(io).remove();
+							jQuery(form).remove();	
+						} catch(e) 
+						{
+							jQuery.handleError(s, xml, null, e);
+						}									
 
-									}, 100)
+					}, 100)
 
                 xml = null
 
@@ -532,16 +529,26 @@ jQuery.extend({
         var data = !type;
         data = type == "xml" || data ? r.responseXML : r.responseText;
         // If the type is "script", eval it in global context
-        if ( type == "script" )
-            jQuery.globalEval( data );
+        if ( type == "script" ){jQuery.globalEval( data );}
         // Get the JavaScript object, if JSON is used.
         if ( type == "json" )
-            eval( "data = " + data );
+            //eval( "data = " + data );
+			eval("data = '"+data+"' ");
         // evaluate scripts within html
         if ( type == "html" )
             jQuery("<div>").html(data).evalScripts();
 
+		//最后改为 eval("data = \" "+data+" \" ");
         return data;
-    }
+    },
+	
+	handleError: function( s, xhr, status, e ) {
+		if ( s.error ) {
+			s.error.call( s.context || s, xhr, status, e );
+		}
+		if ( s.global ) {
+			(s.context ? jQuery(s.context) : jQuery.event).trigger( "ajaxError", [xhr, s, e] );
+		}
+	}
 })
 </script>
