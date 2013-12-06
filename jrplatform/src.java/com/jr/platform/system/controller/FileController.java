@@ -14,6 +14,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -27,6 +28,7 @@ public class FileController extends BaseController {
 	final Log log = LogFactory.getLog(FileController.class);
 
 	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
+	@ResponseBody
 	public String uploadImage(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam
 			String image) {
@@ -47,16 +49,16 @@ public class FileController extends BaseController {
 				File uploadedFile = new File(fileDir + filename);
 				try {
 					FileCopyUtils.copy(cFile.getBytes(), uploadedFile);
-					//outJsonString(response, Json.oJson(filename, true));
-					return Json.oJson(filename, true);
+					// outJsonString(response, Json.oJson(filename, true));
+					return Json.oJson("device/" + filename, true);
 				} catch (IOException e) {
 					log.error(e.getMessage(), e);
-					//outJsonString(response, Json.oJson("图片上传失败！", false));
+					// outJsonString(response, Json.oJson("图片上传失败！", false));
 					return Json.oJson("图片上传失败！", false);
 				}
 			}
 		}
-		
+
 		return Json.oJson("未选择上传的图片！", false);
 	}
 

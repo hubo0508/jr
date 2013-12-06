@@ -30,9 +30,6 @@ public class ProductController extends BaseController {
 	@Autowired
 	private ProductService productService;
 
-	// @Autowired
-	// private ProductCategoryService productCategoryService;
-
 	@RequestMapping(value = "/productJump", method = RequestMethod.GET)
 	public String productJump() {
 		return "backstage/product/product";
@@ -40,9 +37,6 @@ public class ProductController extends BaseController {
 
 	@RequestMapping(value = "/productAddJump", method = RequestMethod.GET)
 	public String productAddJump(HttpServletRequest request) {
-		// request.setAttribute("productcate", (List)productCategoryService
-		// .queryProductCategoryList().getObject());
-
 		return "backstage/product/product_add.edit";
 	}
 
@@ -110,7 +104,7 @@ public class ProductController extends BaseController {
 	String taobao_links, @RequestParam
 	String features, @RequestParam
 	String range, @RequestParam
-	String brand
+	String brand,@RequestParam String image_url
 	) {
 
 		try {
@@ -119,7 +113,7 @@ public class ProductController extends BaseController {
 					exterior_size, effective_volume, product_weight, voltage,
 					electric_current, power, energy, temperature_range,
 					coolant, work_mode, capacity, stock, taobao_links,
-					features, range, brand);
+					features, range, brand,image_url);
 			outJsonString(response, Json.toJson(r));
 		} catch (Throwable e) {
 			log.error(e.getMessage(), e);

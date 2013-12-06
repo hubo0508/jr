@@ -53,17 +53,17 @@ public class ProductService {
 			String power, String energy, String temperature_range,
 			String coolant, String work_mode, String capacity, String stock,
 			String taobao_links, String features, String service_range,
-			String brand) {
+			String brand,String image_url) {
 
 		if (StringUtils.isEmpty(id)) {
-			String sql = "INSERT INTO product(product_name, device_type_id,product_category, place_origin, model,material, exterior_size, effective_volume,product_weight, voltage,electric_current, power, energy,temperature_range, coolant, work_mode,capacity, stock, taobao_links, features,service_range,brand) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO product(product_name, device_type_id,product_category, place_origin, model,material, exterior_size, effective_volume,product_weight, voltage,electric_current, power, energy,temperature_range, coolant, work_mode,capacity, stock, taobao_links, features,service_range,brand,image_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			int i = jdbcTemplate.update(sql, new Object[] { product_name,
 					device_type_id, product_category, place_origin, model,
 					material, exterior_size, effective_volume, product_weight,
 					voltage, electric_current, power, energy,
 					temperature_range, coolant, work_mode, capacity,
 					Integer.parseInt(stock), taobao_links, features,
-					service_range, brand });
+					service_range, brand ,image_url});
 
 			if (i == 1) {
 				return Results.SUCCESS;
