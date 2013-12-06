@@ -29,15 +29,44 @@ public class ProductService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public Results queryProductList(Page page) {
+	public Results queryProductList(Page page, String product_name,
+			String device_type_id, String product_category,
+			String place_origin, String model, String material,
+			String exterior_size, String effective_volume,
+			String product_weight, String voltage, String electric_current,
+			String power, String energy, String temperature_range,
+			String coolant, String work_mode, String capacity, String stock,
+			String brand) {
 
-		String sql = "SELECT d.product_use,p.id,rental_service_id,device_type_id,stock,product_category,product_name,brand,place_origin,model,material,exterior_size,effective_volume,product_weight,voltage,electric_current,power,energy,temperature_range,coolant,work_mode,capacity,image_url,scroll_mark,stock FROM product p LEFT JOIN device_type d on p.device_type_id = d.id ORDER BY p.id DESC";
+		// String sql = "SELECT
+		// d.product_use,p.id,rental_service_id,device_type_id,stock,product_category,product_name,brand,place_origin,model,material,exterior_size,effective_volume,product_weight,voltage,electric_current,power,energy,temperature_range,coolant,work_mode,capacity,image_url,scroll_mark,stock
+		// FROM product p LEFT JOIN device_type d on p.device_type_id = d.id
+		// WHERE 1=1 ORDER BY p.id DESC";
+
+		Object[] params = new Object[] {
+				page.getStartToDatabase(JdbcUtils.MYSQL), page.getPageSize() };
+
+		StringBuffer sbsql = new StringBuffer(10);
+		sbsql
+				.append("SELECT d.product_use,p.id,rental_service_id,device_type_id,stock,product_category,product_name,brand,place_origin,model,material,exterior_size,effective_volume,product_weight,voltage,electric_current,power,energy,temperature_range,coolant,work_mode,capacity,image_url,scroll_mark,stock FROM product p LEFT JOIN device_type d on p.device_type_id = d.id ");
+		sbsql.append(" WHERE 1=1 ");
+		if (StringUtils.isNotEmpty(product_name)) {
+			sbsql.append(" product_name like %23r%");product_name = "测";
+//			params = new Object[] { "%"+product_name+"%",
+//					page.getStartToDatabase(JdbcUtils.MYSQL),
+//					page.getPageSize() };
+//			params = new Object[] { "%"+product_name+"%",
+//					page.getStartToDatabase(JdbcUtils.MYSQL),
+//					page.getPageSize() };
+		}
+		sbsql.append(" ORDER BY p.id DESC");
+
+		String sql = sbsql.toString();
 
 		SqlStatement stat = new SqlStatement();
 		String countSql = stat.count(sql);
 		sql = stat.paging(sql, JdbcUtils.MYSQL);
-		List<?> result = jdbcTemplate.queryForList(sql, new Object[] {
-				page.getStartToDatabase(JdbcUtils.MYSQL), page.getPageSize() });
+		List<?> result = jdbcTemplate.queryForList(sql, params);
 
 		Long totalCount = jdbcTemplate.queryForLong(countSql);
 

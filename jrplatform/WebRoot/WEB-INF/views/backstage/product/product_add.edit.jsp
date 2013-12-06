@@ -246,7 +246,7 @@ String filedir = request.getScheme()+"://"+request.getServerName()+":"+request.g
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			success : function(msg) {
 				if(msg && (msg.success+"") == "true"){
-					var _option = '<option value="-1">-请选择--</option>';
+					var _option = '<option value="-1">--请选择--</option>';
 					$.each(msg.object,function(idx,item){
 						var _id  = item.id;var _product_use = item.product_use || '&nbsp';
 						if(_id == "${p.device_type_id}"){
@@ -374,7 +374,6 @@ jQuery.extend({
 			{
                 if(typeof uri== 'boolean'){
 					iframeHtml += ' src="' + 'javascript:false' + '"';
-
                 }
                 else if(typeof uri== 'string'){
 					iframeHtml += ' src="' + uri + '"';
@@ -405,8 +404,6 @@ jQuery.extend({
 		jQuery(oldElement).before(newElement);
 		jQuery(oldElement).appendTo(form);
 
-
-		
 		//set attributes
 		jQuery(form).css('position', 'absolute');
 		jQuery(form).css('top', '-1200px');
@@ -416,24 +413,20 @@ jQuery.extend({
     },
 
     ajaxFileUpload: function(s) {
-        // TODO introduce global settings, allowing the client to modify them for all requests, not only timeout		
         s = jQuery.extend({}, jQuery.ajaxSettings, s);
         var id = new Date().getTime()        
 		var form = jQuery.createUploadForm(id, s.fileElementId, (typeof(s.data)=='undefined'?false:s.data));
 		var io = jQuery.createUploadIframe(id, s.secureuri);
 		var frameId = 'jUploadFrame' + id;
 		var formId = 'jUploadForm' + id;		
-        // Watch for a new set of requests
         if ( s.global && ! jQuery.active++ )
 		{
 			jQuery.event.trigger( "ajaxStart" );
 		}            
         var requestDone = false;
-        // Create the request object
         var xml = {}   
         if ( s.global )
             jQuery.event.trigger("ajaxSend", [xml, s]);
-        // Wait for a response to come back
         var uploadCallback = function(isTimeout)
 		{			
 			var io = document.getElementById(frameId);
@@ -459,16 +452,12 @@ jQuery.extend({
                 var status;
                 try {
                     status = isTimeout != "timeout" ? "success" : "error";
-                    // Make sure that the request was successful or notmodified
                     if ( status != "error" )
 					{
-                        // process the data (runs the xml through httpData regardless of callback)
                         var data = jQuery.uploadHttpData( xml, s.dataType );    
-                        // If a local callback was specified, fire it and pass it the data
                         if ( s.success )
                             s.success( data, status );
     
-                        // Fire the global callback
                         if( s.global )
                             jQuery.event.trigger( "ajaxSuccess", [xml, s] );
                     } else
@@ -479,15 +468,12 @@ jQuery.extend({
                     jQuery.handleError(s, xml, status, e);
                 }
 
-                // The request was completed
                 if( s.global )
                     jQuery.event.trigger( "ajaxComplete", [xml, s] );
 
-                // Handle the global AJAX counter
                 if ( s.global && ! --jQuery.active )
                     jQuery.event.trigger( "ajaxStop" );
 
-                // Process result
                 if ( s.complete )
                     s.complete(xml, status);
 

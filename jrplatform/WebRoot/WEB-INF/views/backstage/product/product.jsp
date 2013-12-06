@@ -79,10 +79,65 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <span class="title">查询条件</span> 
                     <span class="t_i"></span>  
                     <div class="t_line"></div>  
-                    <div class="round">        	
-                        <div>用途分类：<input type="text" class="txt"/></div>
-                        <div>日志内容：<input type="text" class="txt"/></div>
-                        <div>状态：<select class="txt"><option>全部</option><option>未提交</option><option>待审核</option><option>通过</option></select></div>
+                    <div class="round">
+                    	<table width="100%" style="font-size:12px;">
+                    		<tr>
+                    			<td align="right">用途分类：</td>
+                                <td align="left"><select class="txt" id="device_type_id"></select></td>
+                    			<td align="right">库存：</td>
+                                <td align="left"><input id="stock" type="text" class="txt"/></td>
+                    			<td align="right">产品分类：</td>
+                                <td align="left"><input id="product_category" type="text" class="txt"/></td>
+                    		</tr>
+                    		<tr>
+                    			<td align="right">产品名称：</td>
+                                <td align="left"><input id="product_name" type="text" class="txt"/></td>
+                    			<td align="right">品牌：</td>
+                                <td align="left"><input id="brand" type="text" class="txt"/></td>
+                    			<td align="right">产地：</td>
+                                <td align="left"><input id="place_origin" type="text" class="txt"/></td>
+                    		</tr>
+                    		<tr>
+                    			<td align="right">型号：</td>
+                                <td align="left"><input id="model" type="text" class="txt"/></td>
+                    			<td align="right">材质：</td>
+                                <td align="left"><input id="material" type="text" class="txt"/></td>
+                    			<td align="right">外观尺寸：</td>
+                                <td align="left"><input id="exterior_size" type="text" class="txt"/></td>
+                    		</tr>
+                    		<tr>
+                    			<td align="right">有效容积：</td>
+                                <td align="left"><input id="effective_volume" type="text" class="txt"/></td>
+                    			<td align="right">产品重量：</td>
+                                <td align="left"><input id="product_weight" type="text" class="txt"/></td>
+                    			<td align="right">电压：</td>
+                                <td align="left"><input id="voltage" type="text" class="txt"/></td>
+                    		</tr>
+                    		<tr>
+                    			<td align="right">电流：</td>
+                                <td align="left"><input id="electric_current" type="text" class="txt"/></td>
+                    			<td align="right">功率：</td>
+                                <td align="left"><input id="power" type="text" class="txt"/></td>
+                    			<td align="right">能耗：</td>
+                                <td align="left"><input id="energy" type="text" class="txt"/></td>
+                    		</tr>
+                    		<tr>
+                    			<td align="right">温度范围：</td>
+                                <td align="left"><input id="temperature_range" type="text" class="txt"/></td>
+                    			<td align="right">冷却剂：</td>
+                                <td align="left"><input id="coolant" type="text" class="txt"/></td>
+                    			<td align="right">工作方式：</td>
+                                <td align="left"><input id="work_mode" type="text" class="txt"/></td>
+                    		</tr>
+                    		<tr>
+                    			<td align="right">产能：</td>
+                                <td align="left"><input id="capacity" type="text" class="txt"/></td>
+                    			<td></td>
+                    			<td></td>
+                                <td></td>
+                    			<td></td>
+                    		</tr>
+                    	</table>
                     </div>                   
                 </div>
             </td>
@@ -133,7 +188,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		getList(page_size,1);			   
 		$(".linksButton").navigationbutton("#FF002B", "#339E35",{callback: clickButtonCallback});
 		$(".search").search({callback: function(){$.tableAutoScroll();$.changeTableHead()}});
+		
+		queryProductCategoryList();
 	});
+	
+	function queryProductCategoryList(){
+		$.ajax({
+			type : "post",
+			url : "${pageContext.servletContext.contextPath}/productCategory/queryProductCategoryList",
+			dataType:"json",
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+			success : function(msg) {
+				if(msg && (msg.success+"") == "true"){
+					var _option = '<option value="-1">--全部--</option>';
+					$.each(msg.object,function(idx,item){
+						var _id  = item.id;var _product_use = item.product_use || '&nbsp';
+						_option += '<option value="'+_id+'">'+_product_use+'</option>';
+					});
+					$("#device_type_id").html(_option);
+				}
+			}
+		});
+	}
 	
 	var loading;
 	function getList(pageSize,start)
@@ -141,11 +217,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		if(loading == undefined){loading=new ol.loading({id:"scrollbar"})}
 		loading.show();
 		
+		var _stock         = $("#stock").attr("value");//库存
+		var _product_name       = $("#product_name").attr("value");//设备名称
+		var _brand = $("#brand").attr("value");
+		var _device_type_id      = $("#device_type_id").val();//设备用途ID
+		var _product_category      = $("#product_category").attr("value");//类别
+		var _place_origin      = $("#place_origin").attr("value");//产地
+		var _model      = $("#model").attr("value");//型号
+		var _material      = $("#material").attr("value");//材质
+		var _exterior_size      = $("#exterior_size").attr("value");//外观尺寸
+		var _effective_volume      = $("#effective_volume").attr("value");//有效容积
+		var _product_weight      = $("#product_weight").attr("value");//产品重量
+		var _voltage      = $("#voltage").attr("value");//电压
+		var _electric_current      = $("#electric_current").attr("value");//电流
+		var _power      = $("#power").attr("value");//功率
+		var _energy      = $("#energy").attr("value");//能耗
+		var _temperature_range      = $("#temperature_range").attr("value");//温度范围
+		var _coolant      = $("#coolant").attr("value");//冷却剂
+		var _work_mode      = $("#work_mode").attr("value");//工作方式
+		var _capacity      = $("#capacity").attr("value");//产能
+		
+		
 		$.ajax( {
 			type : "post",
 			url : "${pageContext.servletContext.contextPath}/product/queryProductList",
 			dataType:"json",
-			data:"pageSize="+pageSize+"&start="+start,
+			data:"pageSize="+pageSize+"&start="+start+"&product_name="+_product_name+"&device_type_id="+_device_type_id+"&product_category="+_product_category+"&place_origin="+_place_origin+"&model="+_model+"&material="+_material+"&exterior_size="+_exterior_size+"&effective_volume="+_effective_volume+"&product_weight="+_product_weight+"&voltage="+_voltage+"&electric_current="+_electric_current+"&power="+_power+"&energy="+_energy+"&temperature_range="+_temperature_range+"&coolant="+_coolant+"&work_mode="+_work_mode+"&capacity="+_capacity+"&stock="+_stock+"&brand="+_brand,
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			success : function(msg) {
 				loading.hide();

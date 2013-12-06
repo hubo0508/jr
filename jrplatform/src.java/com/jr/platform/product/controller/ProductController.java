@@ -71,11 +71,30 @@ public class ProductController extends BaseController {
 	@RequestMapping(value = "/queryProductList", method = RequestMethod.POST)
 	public void queryProductList(HttpServletResponse response, @RequestParam
 	int start, @RequestParam
-	int pageSize) {
+	int pageSize, @RequestParam
+	String product_name, @RequestParam
+	String device_type_id, @RequestParam
+	String product_category, @RequestParam
+	String place_origin, @RequestParam
+	String model, @RequestParam
+	String material, @RequestParam
+	String exterior_size, @RequestParam
+	String effective_volume, @RequestParam
+	String product_weight, @RequestParam
+	String voltage, @RequestParam
+	String electric_current, @RequestParam
+	String power, @RequestParam
+	String energy, @RequestParam
+	String temperature_range, @RequestParam
+	String coolant, @RequestParam
+	String work_mode, @RequestParam
+	String capacity, @RequestParam
+	String stock, @RequestParam
+	String brand) {
 
 		try {
 			Results r = productService.queryProductList(new Page(start,
-					pageSize));
+					pageSize),product_name, device_type_id, product_category, place_origin, model, material, exterior_size, effective_volume, product_weight, voltage, electric_current, power, energy, temperature_range, coolant, work_mode, capacity, stock, brand);
 			outJsonString(response, Json.toJson(r));
 		} catch (RuntimeException e) {
 			log.error(e.getMessage(), e);
@@ -119,8 +138,8 @@ public class ProductController extends BaseController {
 					electric_current, power, energy, temperature_range,
 					coolant, work_mode, capacity, stock, taobao_links,
 					features, range, brand, image_url);
-			
-			//保存成功删除历史文件
+
+			// 保存成功删除历史文件
 			if (r.isSuccess()) {
 				try {
 					File fileTemp = new File(fileDir + historyimage);
