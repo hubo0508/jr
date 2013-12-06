@@ -53,17 +53,17 @@ public class ProductService {
 			String power, String energy, String temperature_range,
 			String coolant, String work_mode, String capacity, String stock,
 			String taobao_links, String features, String service_range,
-			String brand,String image_url) {
+			String brand, String image_url) {
 
 		if (StringUtils.isEmpty(id)) {
-			String sql = "INSERT INTO product(product_name, device_type_id,product_category, place_origin, model,material, exterior_size, effective_volume,product_weight, voltage,electric_current, power, energy,temperature_range, coolant, work_mode,capacity, stock, taobao_links, features,service_range,brand,image_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO product(product_name, device_type_id,product_category, place_origin, model,material, exterior_size, effective_volume,product_weight, voltage,electric_current, power, energy,temperature_range, coolant, work_mode,capacity, stock, taobao_links, features,service_range,brand,image_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			int i = jdbcTemplate.update(sql, new Object[] { product_name,
 					device_type_id, product_category, place_origin, model,
 					material, exterior_size, effective_volume, product_weight,
 					voltage, electric_current, power, energy,
 					temperature_range, coolant, work_mode, capacity,
 					Integer.parseInt(stock), taobao_links, features,
-					service_range, brand ,image_url});
+					service_range, brand, image_url });
 
 			if (i == 1) {
 				return Results.SUCCESS;
@@ -72,19 +72,18 @@ public class ProductService {
 			throw new RuntimeException();
 
 		} else {
-			// String sql = "UPDATE device_type SET product_use=?,
-			// product_use_desc=? WHERE id=?";
-			// int i = jdbcTemplate.update(sql, new PreparedStatementSetter() {
-			// public void setValues(PreparedStatement ps) throws SQLException {
-			// ps.setString(1, product_use);
-			// ps.setString(2, product_use_desc);
-			// ps.setInt(3, Integer.parseInt(id));
-			// }
-			// });
-			//
-			// if (i == 1) {
-			// return Results.SUCCESS;
-			// }
+			String sql = "UPDATE product SET product_name=?, device_type_id=?,product_category=?, place_origin=?, model=?,material=?, exterior_size=?, effective_volume=?,product_weight=?, voltage=?,electric_current=?, power=?, energy=?,temperature_range=?, coolant=?, work_mode=?,capacity=?, stock=?, taobao_links=?, features=?,service_range=?,brand=?,image_url=? WHERE id=?";
+			int i = jdbcTemplate.update(sql, new Object[] { product_name,
+					device_type_id, product_category, place_origin, model,
+					material, exterior_size, effective_volume, product_weight,
+					voltage, electric_current, power, energy,
+					temperature_range, coolant, work_mode, capacity,
+					Integer.parseInt(stock), taobao_links, features,
+					service_range, brand, image_url, Integer.parseInt(id) });
+
+			if (i == 1) {
+				return Results.SUCCESS;
+			}
 		}
 
 		throw new RuntimeException();
@@ -110,7 +109,7 @@ public class ProductService {
 	}
 
 	public Map<String, Object> findById(int id) {
-		String sql = "SELECT id,product_use,product_use_desc FROM device_type WHERE id=?";
+		String sql = "SELECT id,product_name, device_type_id,product_category, place_origin, model,material, exterior_size, effective_volume,product_weight, voltage,electric_current, power, energy,temperature_range, coolant, work_mode,capacity, stock, taobao_links, features,service_range,brand,image_url FROM product WHERE id=?";
 		return jdbcTemplate.queryForMap(sql, new Object[] { id });
 	}
 

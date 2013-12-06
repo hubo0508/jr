@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,9 @@ public class FileController extends BaseController {
 
 	final Log log = LogFactory.getLog(FileController.class);
 
+	@Autowired
+	private String fileDir;
+
 	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
 	@ResponseBody
 	public String uploadImage(HttpServletRequest request,
@@ -34,32 +38,48 @@ public class FileController extends BaseController {
 			String image) {
 
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		String fileDir = request.getSession().getServletContext().getRealPath(
-				"device")
-				+ File.separator;
 
 		CommonsMultipartFile cFile = (CommonsMultipartFile) multipartRequest
-				.getFile(image);// 获取上传文件
+				.getFile(image);
 
-		if (null != cFile) {
-			if (!cFile.isEmpty()) {
-				String uuid = new Long(UUID.randomUUID()
-						.getMostSignificantBits()).toString();
-				String filename = uuid + "_" + cFile.getFileItem().getName();
-				File uploadedFile = new File(fileDir + filename);
-				try {
-					FileCopyUtils.copy(cFile.getBytes(), uploadedFile);
-					// outJsonString(response, Json.oJson(filename, true));
-					return Json.oJson("device/" + filename, true);
-				} catch (IOException e) {
-					log.error(e.getMessage(), e);
-					// outJsonString(response, Json.oJson("图片上传失败！", false));
-					return Json.oJson("图片上传失败！", false);
+		if ("image/jpeg".equals(cFile.getContentType())
+				|| "image/gif".equals(cFile.getContentType())
+				|| "image/png".equals(cFile.getContentType())) {
+			
+			if (null != cFile) {
+				if (!cFile.isEmpty()) {
+					String uuid = new Long(UUID.randomUUID()
+							.getMostSignificantBits()).toString();
+					String filename = uuid + "_"
+							+ cFile.getFileItem().getName();
+					File uploadedFile = new File(fileDir + filename);
+					try {
+						FileCopyUtils.copy(cFile.getBytes(), uploadedFile);
+						return Json.oJson(filename, true);
+					} catch (IOException e) {
+						log.error(e.getMessage(), e);
+						return Json.oJson("图片上传失败！", false);
+					}
 				}
 			}
+		}else{
+			return Json.oJson("请上传png、gif或jpg格式的图片！", false);
 		}
 
 		return Json.oJson("未选择上传的图片！", false);
+	}
+
+	@RequestMapping(value = "/deleteImage", method = RequestMethod.POST)
+	public void deleteImage(HttpServletResponse response, @RequestParam
+	String image) {
+		try {
+			File fileTemp = new File(fileDir + image);
+			if (fileTemp.exists()) {
+				fileTemp.delete();
+			}
+		} catch (RuntimeException e) {
+			log.error(e);
+		}
 	}
 
 }

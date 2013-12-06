@@ -1,5 +1,6 @@
 package com.jr.platform.product.controller;
 
+import java.io.File;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,9 @@ public class ProductController extends BaseController {
 	@Autowired
 	private ProductService productService;
 
+	@Autowired
+	private String fileDir;
+
 	@RequestMapping(value = "/productJump", method = RequestMethod.GET)
 	public String productJump() {
 		return "backstage/product/product";
@@ -47,7 +51,7 @@ public class ProductController extends BaseController {
 			if (StringUtils.isNotEmpty(id)) {
 				Map<String, Object> c = productService.findById(Integer
 						.parseInt(id));
-				request.setAttribute("c", c);
+				request.setAttribute("p", c);
 			} else {
 				request.setAttribute("error", "参数错误，请重新打开编辑页面！");
 			}
@@ -104,8 +108,9 @@ public class ProductController extends BaseController {
 	String taobao_links, @RequestParam
 	String features, @RequestParam
 	String range, @RequestParam
-	String brand,@RequestParam String image_url
-	) {
+	String brand, @RequestParam
+	String image_url, @RequestParam
+	String historyimage) {
 
 		try {
 			Results r = productService.save(id, product_name, device_type_id,
@@ -113,7 +118,20 @@ public class ProductController extends BaseController {
 					exterior_size, effective_volume, product_weight, voltage,
 					electric_current, power, energy, temperature_range,
 					coolant, work_mode, capacity, stock, taobao_links,
-					features, range, brand,image_url);
+					features, range, brand, image_url);
+			
+			//保存成功删除历史文件
+			if (r.isSuccess()) {
+				try {
+					File fileTemp = new File(fileDir + historyimage);
+					if (fileTemp.exists()) {
+						fileTemp.delete();
+					}
+				} catch (RuntimeException e) {
+					log.error(e);
+				}
+			}
+
 			outJsonString(response, Json.toJson(r));
 		} catch (Throwable e) {
 			log.error(e.getMessage(), e);

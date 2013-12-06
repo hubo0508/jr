@@ -132,8 +132,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	$(function(){	
 		getList(page_size,1);			   
 		$(".linksButton").navigationbutton("#FF002B", "#339E35",{callback: clickButtonCallback});
-				
-		//$(".pagination").pagination(1000, {callback: pageselectCallback});
 		$(".search").search({callback: function(){$.tableAutoScroll();$.changeTableHead()}});
 	});
 	
@@ -199,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			_table += '<tr>'+
 					'   <td class="c">'+seq+'</td>'+
-					'	<td class="c"><input type="checkbox" name="tdcb"/></td>'+
+					'	<td class="c"><input type="checkbox" name="tdcb" value="'+_id+'"/></td>'+
 	           		'   <td class="c"><span class="tablebtn" onclick="edit('+_id+')">编辑</span>&nbsp;<span class="tablebtn" onclick="deletes('+_id+')">删除</span></th>'+
 					'	<td class="c">'+_product_use+'</td>'+
 					'	<td class="c">'+_stock+'</td>'+
@@ -262,7 +260,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	
 	function clickButtonCallback(text){
-		if(text == "刷新"){getList();return;}
+		if(text == "刷新"){getList(page_size,1);return;}
 		
 		if(text == "新增"){
 			window.parent.popup({ 
@@ -317,10 +315,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$("#loading").css("display","block").css("background-color","#090").html("删除成功！");
 					getList(page_size,_page_index);
 				}else{
-					$("#loading").css("display","block").css("background-color","#F30").html(msg.message);
-					setTimeout(function(){
-						$("#loading").fadeOut();
-					},5000);
+					$("#loading").fadeOut();
+					window.parent.alert(msg.message);	
 				}
 			}
 		});
@@ -342,7 +338,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function edit(id){
 		window.parent.popup({ 
 				message: 'popup_links', 
-				content: "${pageContext.servletContext.contextPath}/product/productEditJump",
+				content: "${pageContext.servletContext.contextPath}/product/productEditJump?id="+id,
 				title:"编辑设备信息",
 				css: {width: '840px',height:'80%'},
 				pw_id :"productAdd_Edit_JUMP",

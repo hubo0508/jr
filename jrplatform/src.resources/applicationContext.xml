@@ -52,28 +52,14 @@
 		</property>
 	</bean>
 	
-	<!-- 
-	<bean id="txManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-	</bean>
-	<tx:advice id="txAdvice" transaction-manager="txManager">
-		<tx:attributes>
-			<tx:method name="find*" read-only="true" />
-			<tx:method name="get*" read-only="true" />
-			<tx:method name="*" />
-		</tx:attributes>
-	</tx:advice>
-	<aop:config proxy-target-class="true">
-		<aop:advisor
-			pointcut="execution(* com.jr.platform.service..*Service.*(..))"
-			advice-ref="txAdvice" />
-	</aop:config>
-	-->
-	
 	<bean id="txManager"  
         class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
         <property name="dataSource" ref="dataSource" />  
     </bean>  
+    
+    <bean id="fileDir" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="${file.dir}" />
+	</bean>
       
     <tx:annotation-driven transaction-manager="txManager" />  
 	

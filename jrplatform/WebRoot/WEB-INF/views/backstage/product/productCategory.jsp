@@ -213,10 +213,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$("#loading").css("display","block").css("background-color","#090").html("删除成功！");
 					getList();
 				}else{
-					$("#loading").css("display","block").css("background-color","#F30").html(msg.message);
-					setTimeout(function(){
-						$("#loading").fadeOut();
-					},5000);
+					$("#loading").fadeOut();
+					window.parent.alert(msg.message);	
 				}
 			}
 		});
