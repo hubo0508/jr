@@ -118,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					},
 					{"text":"配件管理","href":"./construction.html","child":
 						[
-							{"text":"配件中心","href":"${pageContext.servletContext.contextPath}/product/productJump"},
+							{"text":"配件中心","href":"${pageContext.servletContext.contextPath}/fitting/fittingJump"},
 							{"text":"自定义类别","href":"${pageContext.servletContext.contextPath}/productCategory/productCategoryJump"},
 							{"text":"配件专业类别","href":"${pageContext.servletContext.contextPath}/fittingSpecialtyCate/fittingSpecialtyJump"},
 							{"text":"/"}

@@ -241,7 +241,7 @@ String filedir = request.getScheme()+"://"+request.getServerName()+":"+request.g
 	function queryProductCategoryList(){
 		$.ajax({
 			type : "post",
-			url : "${pageContext.servletContext.contextPath}/productCategory/queryProductCategoryList",
+			url : "${pageContext.servletContext.contextPath}/productCategory/list",
 			dataType:"json",
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			success : function(msg) {
@@ -331,7 +331,7 @@ String filedir = request.getScheme()+"://"+request.getServerName()+":"+request.g
 		if(_features.length > 65535){alert("产品特性长度应小于65535字符！");hideLoading();return false;}
 		
 		var _range = encodeURIComponent(CKEDITOR.instances.range.getData())//
-		if(_range.length > 65535){alert("产能字符长度应小于65535字符！");hideLoading();return false;}
+		if(_range.length > 65535){alert("售后保障字符长度应小于65535字符！");hideLoading();return false;}
 		
 		$.ajax({
 			type : "post",

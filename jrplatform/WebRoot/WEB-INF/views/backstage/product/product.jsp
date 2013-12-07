@@ -58,9 +58,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        		<span class="icon excel">&nbsp;</span><span class="text">导出</span>
                        </div></div>
                        <div class="btn"><span class="hline"></span><div class="c">
-                       		<span class="icon check">&nbsp;</span><span class="text">发布</span>
-                       </div></div> 
-                       <div class="btn"><span class="hline"></span><div class="c">
                        		<span class="icon delete">&nbsp;</span><span class="text">删除</span>
                        </div></div> 
                        <div class="btn"><span class="hline"></span><div class="c">
@@ -195,7 +192,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function queryProductCategoryList(){
 		$.ajax({
 			type : "post",
-			url : "${pageContext.servletContext.contextPath}/productCategory/queryProductCategoryList",
+			url : "${pageContext.servletContext.contextPath}/productCategory/list",
 			dataType:"json",
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			success : function(msg) {
