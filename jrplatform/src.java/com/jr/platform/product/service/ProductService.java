@@ -41,7 +41,7 @@ public class ProductService {
 
 		StringBuffer sb = new StringBuffer(10);
 		sb
-				.append("SELECT d.product_use,p.id,rental_service_id,device_type_id,stock,product_category,product_name,brand,place_origin,model,material,exterior_size,effective_volume,product_weight,voltage,electric_current,power,energy,temperature_range,coolant,work_mode,capacity,image_url,scroll_mark,stock ");
+				.append("SELECT d.product_use,p.id,rental_scroll_mark,device_type_id,stock,product_category,product_name,brand,place_origin,model,material,exterior_size,effective_volume,product_weight,voltage,electric_current,power,energy,temperature_range,coolant,work_mode,capacity,image_url,scroll_mark,stock ");
 		sb
 				.append("FROM product p LEFT JOIN device_type d on p.device_type_id = d.id ");
 		sb.append(" WHERE 1=1 ");
@@ -221,13 +221,14 @@ public class ProductService {
 	}
 
 	@Transactional(isolation = Isolation.REPEATABLE_READ)
-	public String scroll(final int[] ids) {
-		String sql = "UPDATE product SET scroll_mark = 0 WHERE id = ?";
+	public String scroll(final int[] ids, final int mark) {
+		String sql = "UPDATE product SET scroll_mark = ? WHERE id = ?";
 
 		jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 			public void setValues(PreparedStatement ps, int i)
 					throws SQLException {
-				ps.setInt(1, ids[i]);
+				ps.setInt(1, mark);
+				ps.setInt(2, ids[i]);
 			}
 
 			public int getBatchSize() {
@@ -237,11 +238,12 @@ public class ProductService {
 
 		return Json.oJson(true);
 	}
-	
+
 	public Results scrollList(int scrollMark) {
-		String sql = "SELECT d.product_use,p.id,rental_service_id,device_type_id,stock,product_category,product_name,brand,place_origin,model,material,exterior_size,effective_volume,product_weight,voltage,electric_current,power,energy,temperature_range,coolant,work_mode,capacity,stock FROM product p LEFT JOIN device_type d on p.device_type_id = d.id WHERE p.scroll_mark=?";
+		String sql = "SELECT d.product_use,p.id,device_type_id,stock,product_category,product_name,brand,place_origin,model,material,exterior_size,effective_volume,product_weight,voltage,electric_current,power,energy,temperature_range,coolant,work_mode,capacity,stock FROM product p LEFT JOIN device_type d on p.device_type_id = d.id WHERE p.scroll_mark=?";
 		return new Results(jdbcTemplate.queryForList(sql,
 				new Object[] { scrollMark }));
 	}
+
 
 }

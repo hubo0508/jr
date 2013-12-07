@@ -11,12 +11,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <title>金嵘厨房后台管理系统</title>
     
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
 	
@@ -109,9 +103,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					{"text":"产品管理","href":"./construction.html","child":
 						[
 							{"text":"产品中心","href":"${pageContext.servletContext.contextPath}/product/productJump"},
+							{"text":"/"},
 							{"text":"自定义类别","href":"${pageContext.servletContext.contextPath}/productCategory/productCategoryJump"},
 							{"text":"/"},
-							{"text":"产品主页简介","href":"${pageContext.servletContext.contextPath}/productPage/productDescJump"},
+							{"text":"产品中心主页简介","href":"${pageContext.servletContext.contextPath}/productPage/productDescJump"},
 							{"text":"产品滚动管理","href":"${pageContext.servletContext.contextPath}/product/productScrollListJump"},
 							{"text":"/"}
 						]
@@ -119,6 +114,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					{"text":"配件管理","href":"./construction.html","child":
 						[
 							{"text":"配件中心","href":"${pageContext.servletContext.contextPath}/fitting/fittingJump"},
+							{"text":"/"},
+							{"text":"配件中心主页简介","href":"${pageContext.servletContext.contextPath}/fittingPage/fittingPageDescJump"},
+							{"text":"/"},
 							{"text":"自定义类别","href":"${pageContext.servletContext.contextPath}/productCategory/productCategoryJump"},
 							{"text":"配件专业类别","href":"${pageContext.servletContext.contextPath}/fittingSpecialtyCate/fittingSpecialtyJump"},
 							{"text":"/"}
@@ -126,16 +124,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					},
 					{"text":"租赁服务","href":"./construction.html","child":
 						[
-							{"text":"项目立项","href":"./project_start/establish.html"},
-							{"text":"项目组成员表","href":"./project_start/project_team.html"},
-							{"text":"/"},
-							{"text":"项目策划","href":"./construction.html"}	,
+							{"text":"产品滚动管理","href":"${pageContext.servletContext.contextPath}/lease/scrollListJump"},
 							{"text":"/"}
 						]
 					},
 					{"text":"维修服务","href":"./construction.html","child":
 						[
-							{"text":"工作分解结构","href":"./construction.html"},
+							{"text":"产品滚动管理","href":"${pageContext.servletContext.contextPath}/lease/scrollListJump"},
 							{"text":"/"},
 							{"text":"活动排序","href":"./construction.html"},
 							{"text":"资源工期成本估算","href":"./construction.html"},

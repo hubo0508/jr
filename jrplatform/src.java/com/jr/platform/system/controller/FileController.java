@@ -45,13 +45,16 @@ public class FileController extends BaseController {
 		if ("image/jpeg".equals(cFile.getContentType())
 				|| "image/gif".equals(cFile.getContentType())
 				|| "image/png".equals(cFile.getContentType())) {
-			
+
 			if (null != cFile) {
+				System.out.println(cFile.getOriginalFilename());
 				if (!cFile.isEmpty()) {
 					String uuid = new Long(UUID.randomUUID()
 							.getMostSignificantBits()).toString();
-					String filename = uuid + "_"
-							+ cFile.getFileItem().getName();
+					String fType = cFile.getFileItem().getName();
+					fType = fType.substring(fType.lastIndexOf("."),fType.length());
+					String filename = uuid + "_" + fType;
+
 					File uploadedFile = new File(fileDir + filename);
 					try {
 						FileCopyUtils.copy(cFile.getBytes(), uploadedFile);
@@ -62,7 +65,7 @@ public class FileController extends BaseController {
 					}
 				}
 			}
-		}else{
+		} else {
 			return Json.oJson("请上传png、gif或jpg格式的图片！", false);
 		}
 

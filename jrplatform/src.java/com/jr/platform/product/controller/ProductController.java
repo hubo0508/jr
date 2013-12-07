@@ -184,11 +184,11 @@ public class ProductController extends BaseController {
 		}
 	}
 
-	@RequestMapping(value = "/scroll", method = RequestMethod.POST)
-	public void scroll(HttpServletResponse response, @RequestParam
+	@RequestMapping(value = "/cancelScroll", method = RequestMethod.POST)
+	public void cancelScroll(HttpServletResponse response, @RequestParam
 	String ids) {
 		try {
-			String r = productService.scroll(Util.idsToArray(ids));
+			String r = productService.scroll(Util.idsToArray(ids), 0);
 			outJsonString(response, r);
 		} catch (Throwable e) {
 			log.error(e.getMessage(), e);
@@ -196,6 +196,21 @@ public class ProductController extends BaseController {
 		}
 	}
 
+	@RequestMapping(value = "/confirmScroll", method = RequestMethod.POST)
+	public void confirmScroll(HttpServletResponse response, @RequestParam
+	String ids) {
+		try {
+			String r = productService.scroll(Util.idsToArray(ids), 1);
+			outJsonString(response, r);
+		} catch (Throwable e) {
+			log.error(e.getMessage(), e);
+			outJsonString(response, Json.oJson("设置失败，请稍后再试！", false));
+		}
+	}
+
+	/**
+	 * 产品主页滚动查询
+	 */
 	@RequestMapping(value = "/productScrollList", method = RequestMethod.POST)
 	public void productScrollList(HttpServletResponse response) {
 		try {

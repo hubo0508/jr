@@ -225,10 +225,11 @@ String filedir = request.getScheme()+"://"+request.getServerName()+":"+request.g
 		    success: function (data, status)
 		    {
 		    	var j = eval('(' + data+ ')');
-             	if(j.message != "" && j.message != undefined){
+             	if((j.success+"") == "true"){
              		saveHandler(j.message,"${p.image_url}");
              	}else{
-             		window.parent.alert(j.message);
+             		$("#loading").fadeOut();
+             		window.parent.alert("请上传png、gif或jpg格式的图片！");
              	}
 		    },
 		    error: function (data, status, e)
@@ -282,6 +283,7 @@ String filedir = request.getScheme()+"://"+request.getServerName()+":"+request.g
 		if(_brand.length > 50){alert("品牌字符长度应小于50字符！");hideLoading();return false;}
 		
 		var _device_type_id      = $("#device_type_id").val();//设备用途ID
+		if(_device_type_id == null || _device_type_id == "-1" || _device_type_id.length < 0){alert("设备自定义类别不能为空！");hideLoading();return false;}
 		var _product_category      = $("#product_category").attr("value");//类别
 		if(_product_category.length > 50){alert("类别字符长度应小于50字符！");hideLoading();return false;}
 		
