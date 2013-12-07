@@ -154,7 +154,7 @@ public class ProductController extends BaseController {
 					features, range, brand, image_url);
 
 			// 保存成功删除历史文件
-			if (r.isSuccess()) {
+			if (r.isSuccess() && StringUtils.isNotEmpty(historyimage)) {
 				try {
 					File fileTemp = new File(fileDir + historyimage);
 					if (fileTemp.exists()) {

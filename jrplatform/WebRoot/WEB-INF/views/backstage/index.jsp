@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							{"text":"/"},
 							{"text":"自定义类别","href":"${pageContext.servletContext.contextPath}/productCategory/productCategoryJump"},
 							{"text":"/"},
-							{"text":"产品中心主页简介","href":"${pageContext.servletContext.contextPath}/productPage/productDescJump"},
+							{"text":"产品中心简介","href":"${pageContext.servletContext.contextPath}/productPage/productDescJump"},
 							{"text":"产品滚动管理","href":"${pageContext.servletContext.contextPath}/product/productScrollListJump"},
 							{"text":"/"}
 						]
@@ -115,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						[
 							{"text":"配件中心","href":"${pageContext.servletContext.contextPath}/fitting/fittingJump"},
 							{"text":"/"},
-							{"text":"配件中心主页简介","href":"${pageContext.servletContext.contextPath}/fittingPage/fittingPageDescJump"},
+							{"text":"配件中心简介","href":"${pageContext.servletContext.contextPath}/fittingPage/fittingPageDescJump"},
 							{"text":"/"},
 							{"text":"自定义类别","href":"${pageContext.servletContext.contextPath}/productCategory/productCategoryJump"},
 							{"text":"配件专业类别","href":"${pageContext.servletContext.contextPath}/fittingSpecialtyCate/fittingSpecialtyJump"},
@@ -125,38 +125,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					{"text":"租赁服务","href":"./construction.html","child":
 						[
 							{"text":"产品滚动管理","href":"${pageContext.servletContext.contextPath}/lease/scrollListJump"},
+							{"text":"/"},
+							{"text":"租赁服务简介","href":"${pageContext.servletContext.contextPath}/lease/leaseDescJump"},
 							{"text":"/"}
 						]
 					},
 					{"text":"维修服务","href":"./construction.html","child":
 						[
-							{"text":"产品滚动管理","href":"${pageContext.servletContext.contextPath}/lease/scrollListJump"},
-							{"text":"/"},
-							{"text":"活动排序","href":"./construction.html"},
-							{"text":"资源工期成本估算","href":"./construction.html"},
-							{"text":"/"},
-							{"text":"进度计划","href":"./construction.html"},
-							{"text":"项目计划","href":"./construction.html"},
-							{"text":"/"},
-							{"text":"风险计划","href":"./construction.html"},
-							{"text":"沟通计划","href":"./construction.html"},
-							{"text":"/"}
-						]
-					},
-					{"text":"维修服务","href":"./construction.html","child":
-						[
-							{"text":"系统测试","href":"./construction.html"},
+							{"text":"服务承诺","href":"${pageContext.servletContext.contextPath}/repair/pledgeJump"},
+							{"text":"服务方式","href":"${pageContext.servletContext.contextPath}/repair/modeJump"},
+							{"text":"服务范围","href":"${pageContext.servletContext.contextPath}/repair/rangeJump"},
+							{"text":"维修设备种类","href":"${pageContext.servletContext.contextPath}/repair/categoryJump"},
+							{"text":"维修报告单","href":"${pageContext.servletContext.contextPath}/repair/reportJump"},
 							{"text":"/"}
 					    ]
 					},
-					{"text":"新闻资讯","child":"","href":"./construction.html"},
-					{"text":"知识库","href":"./construction.html","child":
+					{"text":"新闻资讯","child":"","href":"./construction.html","child":
 						[
-							{"text":"评估与验收","href":"./construction.html"},
-							{"text":"项目总结","href":"./construction.html"},
-							{"text":"文件归档","href":"./construction.html"},
-							{"text":"/"} 
-						]
+							{"text":"新闻资讯","href":"${pageContext.servletContext.contextPath}/repair/pledgeJump"},
+							{"text":"/"}
+					    ]
 					},
 					{"text":"学习中心","href":"./construction.html","child":
 						[

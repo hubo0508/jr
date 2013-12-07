@@ -155,8 +155,6 @@ String filedir = request.getScheme()+"://"+request.getServerName()+":"+request.g
     
     <div id="loading" style="padding:5px; color:#FFF; position:fixed; top:5px; left:5px; display:none;"></div>
     
-    <div id="loading" style="padding:5px; color:#FFF; position:fixed; top:5px; left:5px; display:none;">${c.error }</div>
-    
 </body>
 <script type="text/javascript">
 	$(function(){		

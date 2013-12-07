@@ -31,6 +31,40 @@ public class FileController extends BaseController {
 	@Autowired
 	private String fileDir;
 
+	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+	@ResponseBody
+	public String uploadFile(HttpServletRequest request,
+			HttpServletResponse response, @RequestParam
+			String file) {
+
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+
+		CommonsMultipartFile cFile = (CommonsMultipartFile) multipartRequest
+				.getFile(file);
+
+		if (null != cFile) {
+			if (!cFile.isEmpty()) {
+				String uuid = new Long(UUID.randomUUID()
+						.getMostSignificantBits()).toString();
+				String fType = cFile.getFileItem().getName();
+				fType = fType.substring(fType.lastIndexOf("."), fType
+						.length());
+				String filename = uuid + "_" + fType;
+	
+				File uploadedFile = new File(fileDir + filename);
+				try {
+					FileCopyUtils.copy(cFile.getBytes(), uploadedFile);
+					return Json.oJson(filename, true);
+				} catch (IOException e) {
+					log.error(e.getMessage(), e);
+					return Json.oJson("图片上传失败！", false);
+				}
+			}
+		}
+
+		return Json.oJson("_null", false);
+	}
+
 	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
 	@ResponseBody
 	public String uploadImage(HttpServletRequest request,
@@ -52,7 +86,8 @@ public class FileController extends BaseController {
 					String uuid = new Long(UUID.randomUUID()
 							.getMostSignificantBits()).toString();
 					String fType = cFile.getFileItem().getName();
-					fType = fType.substring(fType.lastIndexOf("."),fType.length());
+					fType = fType.substring(fType.lastIndexOf("."), fType
+							.length());
 					String filename = uuid + "_" + fType;
 
 					File uploadedFile = new File(fileDir + filename);
