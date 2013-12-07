@@ -2,6 +2,7 @@ package com.jr.platform.product.service;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,38 +38,115 @@ public class ProductService {
 			String power, String energy, String temperature_range,
 			String coolant, String work_mode, String capacity, String stock,
 			String brand) {
+		
+		StringBuffer sb = new StringBuffer(10);
+		sb
+				.append("SELECT d.product_use,p.id,rental_service_id,device_type_id,stock,product_category,product_name,brand,place_origin,model,material,exterior_size,effective_volume,product_weight,voltage,electric_current,power,energy,temperature_range,coolant,work_mode,capacity,image_url,scroll_mark,stock ");
+		sb
+				.append("FROM product p LEFT JOIN device_type d on p.device_type_id = d.id ");
+		sb.append(" WHERE 1=1 ");
 
-		// String sql = "SELECT
-		// d.product_use,p.id,rental_service_id,device_type_id,stock,product_category,product_name,brand,place_origin,model,material,exterior_size,effective_volume,product_weight,voltage,electric_current,power,energy,temperature_range,coolant,work_mode,capacity,image_url,scroll_mark,stock
-		// FROM product p LEFT JOIN device_type d on p.device_type_id = d.id
-		// WHERE 1=1 ORDER BY p.id DESC";
-
-		Object[] params = new Object[] {
-				page.getStartToDatabase(JdbcUtils.MYSQL), page.getPageSize() };
-
-		StringBuffer sbsql = new StringBuffer(10);
-		sbsql
-				.append("SELECT d.product_use,p.id,rental_service_id,device_type_id,stock,product_category,product_name,brand,place_origin,model,material,exterior_size,effective_volume,product_weight,voltage,electric_current,power,energy,temperature_range,coolant,work_mode,capacity,image_url,scroll_mark,stock FROM product p LEFT JOIN device_type d on p.device_type_id = d.id ");
-		sbsql.append(" WHERE 1=1 ");
+		List<Object> setparams = new ArrayList<Object>();
 		if (StringUtils.isNotEmpty(product_name)) {
-			sbsql.append(" product_name like %23r%");product_name = "测";
-//			params = new Object[] { "%"+product_name+"%",
-//					page.getStartToDatabase(JdbcUtils.MYSQL),
-//					page.getPageSize() };
-//			params = new Object[] { "%"+product_name+"%",
-//					page.getStartToDatabase(JdbcUtils.MYSQL),
-//					page.getPageSize() };
+			sb.append(" AND product_name like ?");
+			setparams.add("%" + product_name + "%");
 		}
-		sbsql.append(" ORDER BY p.id DESC");
+		if (!"null".equals(device_type_id) && !"-1".equals(device_type_id)
+				&& StringUtils.isNotEmpty(device_type_id)) {
+			sb.append(" AND device_type_id = ?");
+			setparams.add(Integer.parseInt(device_type_id));
+		}
+		if (StringUtils.isNotEmpty(product_category)) {
+			sb.append(" AND product_category = ?");
+			setparams.add(product_category);
+		}
+		if (StringUtils.isNotEmpty(place_origin)) {
+			sb.append(" AND place_origin = ?");
+			setparams.add(place_origin);
+		}
+		if (StringUtils.isNotEmpty(model)) {
+			sb.append(" AND model like ?");
+			setparams.add("%" + model + "%");
+		}
+		if (StringUtils.isNotEmpty(material)) {
+			sb.append(" AND material like ?");
+			setparams.add("%" + material + "%");
+		}
+		if (StringUtils.isNotEmpty(exterior_size)) {
+			sb.append(" AND exterior_size like ?");
+			setparams.add("%" + exterior_size + "%");
+		}
+		if (StringUtils.isNotEmpty(effective_volume)) {
+			sb.append(" AND effective_volume like ?");
+			setparams.add("%" + effective_volume + "%");
+		}
+		if (StringUtils.isNotEmpty(product_weight)) {
+			sb.append(" AND product_weight like ?");
+			setparams.add("%" + product_weight + "%");
+		}
+		if (StringUtils.isNotEmpty(product_weight)) {
+			sb.append(" AND product_weight like ?");
+			setparams.add("%" + product_weight + "%");
+		}
+		if (StringUtils.isNotEmpty(voltage)) {
+			sb.append(" AND voltage like ?");
+			setparams.add("%" + voltage + "%");
+		}
+		if (StringUtils.isNotEmpty(electric_current)) {
+			sb.append(" AND electric_current like ?");
+			setparams.add("%" + electric_current + "%");
+		}
+		if (StringUtils.isNotEmpty(power)) {
+			sb.append(" AND power like ?");
+			setparams.add("%" + power + "%");
+		}
+		if (StringUtils.isNotEmpty(energy)) {
+			sb.append(" AND energy like ?");
+			setparams.add("%" + energy + "%");
+		}
+		if (StringUtils.isNotEmpty(temperature_range)) {
+			sb.append(" AND temperature_range like ?");
+			setparams.add("%" + temperature_range + "%");
+		}
+		if (StringUtils.isNotEmpty(coolant)) {
+			sb.append(" AND coolant like ?");
+			setparams.add("%" + coolant + "%");
+		}
+		if (StringUtils.isNotEmpty(work_mode)) {
+			sb.append(" AND work_mode like ?");
+			setparams.add("%" + work_mode + "%");
+		}
+		if (StringUtils.isNotEmpty(capacity)) {
+			sb.append(" AND capacity like ?");
+			setparams.add("%" + capacity + "%");
+		}
+		if (StringUtils.isNotEmpty(stock)) {
+			sb.append(" AND stock = ?");
+			setparams.add(Integer.parseInt(stock));
+		}
+		sb.append(" ORDER BY p.id DESC");
 
-		String sql = sbsql.toString();
-
+		String sql = sb.toString();
 		SqlStatement stat = new SqlStatement();
 		String countSql = stat.count(sql);
 		sql = stat.paging(sql, JdbcUtils.MYSQL);
-		List<?> result = jdbcTemplate.queryForList(sql, params);
 
-		Long totalCount = jdbcTemplate.queryForLong(countSql);
+		int s = page.getStartToDatabase(JdbcUtils.MYSQL);
+		int e = page.getPageSize();
+
+		long totalCount = 0;
+		List<?> result = null;
+		if (setparams.size() > 0) {
+			totalCount = jdbcTemplate.queryForLong(countSql, setparams
+					.toArray());
+
+			setparams.add(s);
+			setparams.add(e);
+			result = jdbcTemplate.queryForList(sql, setparams.toArray());
+		} else {
+			totalCount = jdbcTemplate.queryForLong(countSql);
+			result = jdbcTemplate.queryForList(sql, new Object[] { s, e });
+		}
 
 		return new Results(result, totalCount, page.getStartPage(), page
 				.getPageSize());

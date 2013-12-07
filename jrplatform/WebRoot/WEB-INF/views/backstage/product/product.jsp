@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        		<span class="icon add">&nbsp;</span><span class="text">新增</span>
                        </div></div> 
                        <div class="btn"><span class="hline"></span><div class="c">
-                       		<span class="icon refresh">&nbsp;</span><span class="text">刷新</span>
+                       		<span class="icon refresh">&nbsp;</span><span class="text">刷新/查询</span>
                        </div></div>     
                     </div> 
                 </div>
@@ -237,7 +237,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var _work_mode      = $("#work_mode").attr("value");//工作方式
 		var _capacity      = $("#capacity").attr("value");//产能
 		
-		
 		$.ajax( {
 			type : "post",
 			url : "${pageContext.servletContext.contextPath}/product/queryProductList",
@@ -357,7 +356,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	
 	function clickButtonCallback(text){
-		if(text == "刷新"){getList(page_size,1);return;}
+		if(text == "刷新/查询"){getList(page_size,1);return;}
 		
 		if(text == "新增"){
 			window.parent.popup({ 
