@@ -132,11 +132,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					},
 					{"text":"维修服务","href":"./construction.html","child":
 						[
-							{"text":"服务承诺","href":"${pageContext.servletContext.contextPath}/repair/pledgeJump"},
-							{"text":"服务方式","href":"${pageContext.servletContext.contextPath}/repair/modeJump"},
-							{"text":"服务范围","href":"${pageContext.servletContext.contextPath}/repair/rangeJump"},
-							{"text":"维修设备种类","href":"${pageContext.servletContext.contextPath}/repair/categoryJump"},
-							{"text":"维修报告单","href":"${pageContext.servletContext.contextPath}/repair/reportJump"},
+							{"text":"服务承诺","href":"${pageContext.servletContext.contextPath}/service/pledgeJump"},
+							{"text":"服务方式","href":"${pageContext.servletContext.contextPath}/service/modeJump"},
+							{"text":"服务范围","href":"${pageContext.servletContext.contextPath}/service/rangeJump"},
+							{"text":"维修设备种类","href":"${pageContext.servletContext.contextPath}/service/categoryJump"},
+							{"text":"维修报告单","href":"${pageContext.servletContext.contextPath}/service/reportJump"},
 							{"text":"/"}
 					    ]
 					},
