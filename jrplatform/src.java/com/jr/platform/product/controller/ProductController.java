@@ -44,6 +44,16 @@ public class ProductController extends BaseController {
 		return "backstage/product/product_add.edit";
 	}
 
+	@RequestMapping(value = "/productScrollListJump", method = RequestMethod.GET)
+	public String productScrollListJump(HttpServletRequest request) {
+		return "backstage/product/productScroll";
+	}
+
+	@RequestMapping(value = "/selectProductJump", method = RequestMethod.GET)
+	public String selectProductJump(HttpServletRequest request) {
+		return "backstage/product/selectProduct";
+	}
+
 	@RequestMapping(value = "/productEditJump", method = RequestMethod.GET)
 	public String productEditJump(HttpServletRequest request, @RequestParam
 	String id) {
@@ -94,7 +104,11 @@ public class ProductController extends BaseController {
 
 		try {
 			Results r = productService.queryProductList(new Page(start,
-					pageSize),product_name, device_type_id, product_category, place_origin, model, material, exterior_size, effective_volume, product_weight, voltage, electric_current, power, energy, temperature_range, coolant, work_mode, capacity, stock, brand);
+					pageSize), product_name, device_type_id, product_category,
+					place_origin, model, material, exterior_size,
+					effective_volume, product_weight, voltage,
+					electric_current, power, energy, temperature_range,
+					coolant, work_mode, capacity, stock, brand);
 			outJsonString(response, Json.toJson(r));
 		} catch (RuntimeException e) {
 			log.error(e.getMessage(), e);
@@ -167,6 +181,29 @@ public class ProductController extends BaseController {
 		} catch (Throwable e) {
 			log.error(e.getMessage(), e);
 			outJsonString(response, Json.oJson(Results.DELETEERROR, false));
+		}
+	}
+
+	@RequestMapping(value = "/scroll", method = RequestMethod.POST)
+	public void scroll(HttpServletResponse response, @RequestParam
+	String ids) {
+		try {
+			String r = productService.scroll(Util.idsToArray(ids));
+			outJsonString(response, r);
+		} catch (Throwable e) {
+			log.error(e.getMessage(), e);
+			outJsonString(response, Json.oJson("设置失败，请稍后再试！", false));
+		}
+	}
+
+	@RequestMapping(value = "/productScrollList", method = RequestMethod.POST)
+	public void productScrollList(HttpServletResponse response) {
+		try {
+			Results r = productService.scrollList(1);
+			outJsonString(response, Json.toJson(r));
+		} catch (RuntimeException e) {
+			log.error(e.getMessage(), e);
+			outJsonString(response, Json.oJson(Results.BUSY, false));
 		}
 	}
 }

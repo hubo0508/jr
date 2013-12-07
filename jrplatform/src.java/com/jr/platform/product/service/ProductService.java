@@ -38,7 +38,7 @@ public class ProductService {
 			String power, String energy, String temperature_range,
 			String coolant, String work_mode, String capacity, String stock,
 			String brand) {
-		
+
 		StringBuffer sb = new StringBuffer(10);
 		sb
 				.append("SELECT d.product_use,p.id,rental_service_id,device_type_id,stock,product_category,product_name,brand,place_origin,model,material,exterior_size,effective_volume,product_weight,voltage,electric_current,power,energy,temperature_range,coolant,work_mode,capacity,image_url,scroll_mark,stock ");
@@ -218,6 +218,30 @@ public class ProductService {
 	public Map<String, Object> findById(int id) {
 		String sql = "SELECT id,product_name, device_type_id,product_category, place_origin, model,material, exterior_size, effective_volume,product_weight, voltage,electric_current, power, energy,temperature_range, coolant, work_mode,capacity, stock, taobao_links, features,service_range,brand,image_url FROM product WHERE id=?";
 		return jdbcTemplate.queryForMap(sql, new Object[] { id });
+	}
+
+	@Transactional(isolation = Isolation.REPEATABLE_READ)
+	public String scroll(final int[] ids) {
+		String sql = "UPDATE product SET scroll_mark = 0 WHERE id = ?";
+
+		jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+			public void setValues(PreparedStatement ps, int i)
+					throws SQLException {
+				ps.setInt(1, ids[i]);
+			}
+
+			public int getBatchSize() {
+				return ids.length;
+			}
+		});
+
+		return Json.oJson(true);
+	}
+	
+	public Results scrollList(int scrollMark) {
+		String sql = "SELECT d.product_use,p.id,rental_service_id,device_type_id,stock,product_category,product_name,brand,place_origin,model,material,exterior_size,effective_volume,product_weight,voltage,electric_current,power,energy,temperature_range,coolant,work_mode,capacity,stock FROM product p LEFT JOIN device_type d on p.device_type_id = d.id WHERE p.scroll_mark=?";
+		return new Results(jdbcTemplate.queryForList(sql,
+				new Object[] { scrollMark }));
 	}
 
 }

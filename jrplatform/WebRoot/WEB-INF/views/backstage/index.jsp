@@ -111,8 +111,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							{"text":"产品中心","href":"${pageContext.servletContext.contextPath}/product/productJump"},
 							{"text":"产品分类","href":"${pageContext.servletContext.contextPath}/productCategory/productCategoryJump"},
 							{"text":"/"},
-							{"text":"产品主页简介","href":"./product/productDesc.html"},
-							{"text":"产品滚动管理","href":"./product/productPage.html"},
+							{"text":"产品主页简介","href":"${pageContext.servletContext.contextPath}/productPage/productDescJump"},
+							{"text":"产品滚动管理","href":"${pageContext.servletContext.contextPath}/product/productScrollListJump"},
 							{"text":"/"}
 						]
 					},

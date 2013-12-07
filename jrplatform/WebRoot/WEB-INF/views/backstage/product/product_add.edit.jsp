@@ -20,10 +20,10 @@ String filedir = request.getScheme()+"://"+request.getServerName()+":"+request.g
     
     <link href="<%=request.getContextPath()%>/resources/backstage/css/shared.css" rel="stylesheet" type="text/css" />
     
+    <!-- 
     <script src="<%=request.getContextPath()%>/resources/backstage/js/jquery-ui.min.js" type="text/javascript"></script>
-    
-     <script src="<%=request.getContextPath()%>/resources/backstage/js/jquery-1.7.js" type="text/javascript"></script> 
-    
+     -->
+     
     <script src="<%=request.getContextPath()%>/resources/backstage/js/popwin_scrollbar.js" type="text/javascript"></script> 
     <script src="<%=request.getContextPath()%>/resources/backstage/ckeditor.js" type="text/javascript"></script>
     
@@ -138,7 +138,7 @@ String filedir = request.getScheme()+"://"+request.getServerName()+":"+request.g
 	        <tr>
 	        	<td align="right" valign="top">服务承诺：</td>
 	            <td align="left" colspan="3" valign="top">
-	            	<textarea class="ckeditor" name="range">${p.range }</textarea>
+	            	<textarea class="ckeditor" name="range">${p.service_range }</textarea>
 	            </td>
 	        </tr>
 	    </table>
@@ -327,10 +327,10 @@ String filedir = request.getScheme()+"://"+request.getServerName()+":"+request.g
 		var _capacity      = $("#capacity").attr("value");//产能
 		if(_capacity.length > 50){alert("产能字符长度应小于50字符！");hideLoading();return false;}
 		
-		var _features = CKEDITOR.instances.features.getData();//产品特性
+		var _features = encodeURIComponent(CKEDITOR.instances.features.getData());//产品特性
 		if(_features.length > 65535){alert("产品特性长度应小于65535字符！");hideLoading();return false;}
 		
-		var _range = CKEDITOR.instances.range.getData()//
+		var _range = encodeURIComponent(CKEDITOR.instances.range.getData())//
 		if(_range.length > 65535){alert("产能字符长度应小于65535字符！");hideLoading();return false;}
 		
 		$.ajax({
