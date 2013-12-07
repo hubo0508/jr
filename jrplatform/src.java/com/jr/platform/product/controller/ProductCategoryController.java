@@ -34,13 +34,13 @@ public class ProductCategoryController extends BaseController {
 		return "backstage/product/productCategory";
 	}
 
-	@RequestMapping(value = "/productCategoryAddJump", method = RequestMethod.GET)
-	public String productCategoryAddJump() {
+	@RequestMapping(value = "/addJump", method = RequestMethod.GET)
+	public String addJump() {
 		return "backstage/product/productCategory_add.edit";
 	}
 
-	@RequestMapping(value = "/productCategoryEditJump", method = RequestMethod.GET)
-	public String productCategoryEditJump(HttpServletRequest request,
+	@RequestMapping(value = "/editJump", method = RequestMethod.GET)
+	public String editJump(HttpServletRequest request,
 			HttpServletResponse response, @RequestParam
 			String id) {
 
@@ -53,20 +53,20 @@ public class ProductCategoryController extends BaseController {
 				request.setAttribute("error", "参数错误，请重新打开编辑页面！");
 			}
 		} catch (Throwable e) {
-			log.error(e.getMessage(),e);
+			log.error(e.getMessage(), e);
 			request.setAttribute("error", Results.BUSY);
 		}
 		return "backstage/product/productCategory_add.edit";
 	}
 
-	@RequestMapping(value = "/queryProductCategoryList", method = RequestMethod.POST)
-	public void queryProductCategoryList(HttpServletResponse response) {
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
+	public void list(HttpServletResponse response) {
 
 		try {
-			Results r = productCategoryService.queryProductCategoryList();
+			Results r = productCategoryService.list();
 			outJsonString(response, Json.toJson(r));
 		} catch (Throwable e) {
-			log.error(e.getMessage(),e);
+			log.error(e.getMessage(), e);
 			outJsonString(response, Json.oJson(Results.BUSY, false));
 		}
 	}
@@ -79,10 +79,10 @@ public class ProductCategoryController extends BaseController {
 
 		try {
 			Results r = productCategoryService.save(product_use,
-					product_use_desc,id);
+					product_use_desc, id);
 			outJsonString(response, Json.toJson(r));
 		} catch (Throwable e) {
-			log.error(e.getMessage(),e);
+			log.error(e.getMessage(), e);
 			outJsonString(response, Json.oJson(Results.SAVEERROR, false));
 		}
 	}
@@ -90,13 +90,13 @@ public class ProductCategoryController extends BaseController {
 	@RequestMapping(value = "/deleteByIds", method = RequestMethod.POST)
 	public void deleteByIds(HttpServletResponse response, @RequestParam
 	String ids) {
-		
+
 		try {
 			Results r = productCategoryService
 					.deleteByIds(Util.idsToArray(ids));
 			outJsonString(response, Json.toJson(r));
 		} catch (Throwable e) {
-			log.error(e.getMessage(),e);
+			log.error(e.getMessage(), e);
 			outJsonString(response, Json.oJson(Results.DELETEERROR, false));
 		}
 	}

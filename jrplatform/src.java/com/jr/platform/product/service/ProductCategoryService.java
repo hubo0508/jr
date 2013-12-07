@@ -26,9 +26,9 @@ public class ProductCategoryService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public Results queryProductCategoryList() {
+	public Results list() {
 
-		String sql = "SELECT id,product_use, product_use_desc FROM device_type ORDER BY id DESC";
+		String sql = "SELECT id,product_use, product_use_desc FROM device_type WHERE product_use IS NOT null ORDER BY id DESC";
 		return new Results(jdbcTemplate.queryForList(sql));
 	}
 

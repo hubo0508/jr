@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<tr>
         	<td>
             	<div class="labelDiv">    	
-                    <div class="labelTitle">产品类别管理</div>
+                    <div class="labelTitle">自定义类别管理</div>
                     <div class="g_gray_line workTitleLine"></div>
                     
                     <div class="linksButton">
@@ -100,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		$.ajax( {
 			type : "post",
-			url : "${pageContext.servletContext.contextPath}/productCategory/queryProductCategoryList",
+			url : "${pageContext.servletContext.contextPath}/productCategory/list",
 			dataType:"json",
 			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
 			success : function(msg) {
@@ -166,8 +166,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		if(text == "新增"){
 			window.parent.popup({ 
 				message: 'popup_links', 
-				content: "${pageContext.servletContext.contextPath}/productCategory/productCategoryAddJump",
-				title:"新增产品分类",
+				content: "${pageContext.servletContext.contextPath}/productCategory/addJump",
+				title:"新增自定义类别",
 				css: {width: '500px',height:'300px'},
 				pw_id :"productCategoryAdd_Edit"
 			});	
@@ -236,8 +236,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function edit(id){
 		window.parent.popup({ 
 			message: 'popup_links', 
-			content: "${pageContext.servletContext.contextPath}/productCategory/productCategoryEditJump?id="+id,
-			title:"编辑产品分类",
+			content: "${pageContext.servletContext.contextPath}/productCategory/editJump?id="+id,
+			title:"编辑自定义类别",
 			css: {width: '500px',height:'300px'},
 			pw_id :"productCategoryAdd_Edit",
 		});	

@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					{"text":"产品管理","href":"./construction.html","child":
 						[
 							{"text":"产品中心","href":"${pageContext.servletContext.contextPath}/product/productJump"},
-							{"text":"产品分类","href":"${pageContext.servletContext.contextPath}/productCategory/productCategoryJump"},
+							{"text":"自定义类别","href":"${pageContext.servletContext.contextPath}/productCategory/productCategoryJump"},
 							{"text":"/"},
 							{"text":"产品主页简介","href":"${pageContext.servletContext.contextPath}/productPage/productDescJump"},
 							{"text":"产品滚动管理","href":"${pageContext.servletContext.contextPath}/product/productScrollListJump"},
@@ -118,7 +118,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					},
 					{"text":"配件管理","href":"./construction.html","child":
 						[
-							{"text":"日志审核","href":"./pm_assistant/approval_logs.html"},
+							{"text":"配件中心","href":"${pageContext.servletContext.contextPath}/product/productJump"},
+							{"text":"自定义类别","href":"${pageContext.servletContext.contextPath}/productCategory/productCategoryJump"},
+							{"text":"配件专业类别","href":"${pageContext.servletContext.contextPath}/fittingSpecialtyCate/fittingSpecialtyJump"},
 							{"text":"/"}
 						]
 					},
