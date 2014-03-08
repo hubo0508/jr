@@ -1,0 +1,39 @@
+<div class="container index">
+	<span class="log"></span>
+    <div class="search"><input class="txt" type="text" /><span class="s_btn" title="搜索"></span></div>
+    
+	<div class="login">
+		<c:choose>
+			<c:when test="${cust_user.username != null }">
+				${cust_user.username },您好！欢迎来到金嵘厨房学习中心！
+				<a href="<%=CLIENT %>/usersOff">[退出]</a>&nbsp;
+				<a href="<%=CLIENT %>/updatepassword">[修改密码]</a>&nbsp;
+				<a href="<%=CLIENT %>/registered">[免费注册]</a>
+			</c:when>
+			<c:otherwise>
+				游客，您好！欢迎来到金嵘厨房学习中心！<a href="<%=CLIENT %>/login">[登录]</a>&nbsp;<a href="<%=CLIENT %>/registered">[免费注册]</a>
+			</c:otherwise>
+		</c:choose>
+    </div>
+	
+    <div class="menu">
+    	<div src="<%=CLIENT %>/index">首页</div>
+        <div src="<%=CLIENT %>/fitting/fitting">产品中心</div>
+        <div src="<%=CLIENT %>/product">配件中心</div>
+        <div src="<%=CLIENT %>/lease">租凭服务</div>
+		<div src="<%=CLIENT %>/service">维修服务</div>
+		<div src="<%=CLIENT %>/news">新闻资讯</div>
+        <div src="<%=CLIENT %>/learn" class="selected" >学习中心</div>
+        <div src="<%=CLIENT %>/about" class="rn">关于金嵘</div>
+    </div>
+    
+</div>
+
+<div class="nav_bg"></div>
+
+//////////////////////////配件文字描述查询
+<div class="projieshao">
+    <c:import url="/client/fitting/fittingPageDescJump"/>
+	<br/><br/> 
+    <div class="line"></div>
+</div>

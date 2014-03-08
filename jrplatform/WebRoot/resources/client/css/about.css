@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+
+.about_table{font-size:12px;}
+.about_table p{ line-height:25px;}
+.about_table .vLine{border:none; min-height:70px; border-left:dotted 2px #ff4400; height:100%; margin-left:2px;}
+.about_table .vCont{float:left; width:7px; height:100%; margin-bottom:5px;}
+.about_table .vText{float:left; margin-left:15px; margin-bottom:5px;}
+.about_table .vText .time{float:left; min-height:70px; width:90px;}
+.about_table .vText .info{float:left; min-height:70px; width:520px;}
+.about_table .vText p{ line-height:25px; margin-top:-4px; margin-bottom:-4px;}
+.about_table .licheng{ float:left;height:75px; overflow:hidden}
+.about_table .team{font-size:14px;}
+.about_table .team .img{width:290px; height:390px; border:1px solid #CCC; float:left}
+.about_table .team .img img{width:290px; height:390px;}
+.about_table .team .des{ float:left; height:390px; padding-left:15px; width:330px;}
+.about_table .team .name{ font-size:20px; margin-top:-3px; margin-bottom:2px;}
+.about_table .team .person_des{ color:#999}
+.about_table .cgm{ font-size:16px; color:#000}
+.about_table .contact .cname{ font-size:20px; color:#000; font-family:Microsoft YaHei,'黑体',Segoe UI,Helvetica,Arial,sans-serif,simsun;background-attachment:fixed}
+.about_table .contact p{ margin-top:2px; margin-bottom:2px; color:#999; font-size:12px;}
+.about_table .contact .black{ color:#000}
+.about_table .contact .br{ float:left; width:330px;}
+.about_table .contact .address{ float:left}
+.about_table .contact_table tr td{ padding-bottom:30px;}

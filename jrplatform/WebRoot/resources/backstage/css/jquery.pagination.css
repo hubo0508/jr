@@ -1,0 +1,43 @@
+.pagination {
+            font-size: 80%;
+        }
+.pagination input{
+	margin-top:-4px;
+	width:33px;
+	border: solid 1px #339E35;
+	color: #15B;
+	padding: 0.3em 0.5em;
+	}
+.pagination	select{padding: 0.2em 0.4em; border:1px solid #339E35; float:right;margin-top:0px;}
+.pagination .jump_span{
+	margin-right:-2px; margin-top:2px; color:#1155BB
+	}
+.pagination a {
+    text-decoration: none;
+	border: solid 1px #339E35;
+	color: #15B;
+}
+
+.pagination a, .pagination span {
+    display: block;
+    float: right;
+    padding: 0.3em 0.5em;
+    margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+.pagination .current {
+    background: #26B;
+    color: #fff;
+	border: solid 1px #339E35;
+}
+
+.pagination .current.prev, .pagination .current.next{
+	color:#999;
+	border-color:#999;
+	background:#fff;
+}
+
+.page{
+	margin-top:15px; margin-right:20px; height:30px;
+}

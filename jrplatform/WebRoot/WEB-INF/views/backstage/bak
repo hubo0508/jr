@@ -1,0 +1,95 @@
+    <!--
+    <script src="<%=JS %>/loading-min.js" type="text/javascript"></script>
+    <script src="<%=JS %>/jquery.bgiframe.min.js" type="text/javascript"></script>
+	<link href="<%=CSS %>/loading.css" type="text/css" rel="stylesheet"/>
+	 -->
+	 
+	 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String filedir = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort() + "/";
+	 
+	 //if(loading == undefined){loading=new ol.loading({id:"scrollbar"})}
+		//loading.show();
+
+opt.menu = [
+					{"text":"产品管理","href":"./construction.html","child":
+						[
+							{"text":"产品中心","href":"${pageContext.servletContext.contextPath}/product/productJump"},
+							{"text":"/"},
+							{"text":"自定义类别","href":"${pageContext.servletContext.contextPath}/productCategory/productCategoryJump"},
+							{"text":"/"},
+							{"text":"产品中心简介","href":"${pageContext.servletContext.contextPath}/productPage/productDescJump"},
+							{"text":"产品滚动管理","href":"${pageContext.servletContext.contextPath}/product/productScrollListJump"},
+							{"text":"/"}
+						]
+					},
+					{"text":"配件管理","href":"./construction.html","child":
+						[
+							{"text":"配件中心","href":"${pageContext.servletContext.contextPath}/fitting/fittingJump"},
+							{"text":"/"},
+							{"text":"配件中心简介","href":"${pageContext.servletContext.contextPath}/fittingPage/fittingPageDescJump"},
+							{"text":"/"},
+							{"text":"自定义类别","href":"${pageContext.servletContext.contextPath}/productCategory/productCategoryJump"},
+							{"text":"配件专业类别","href":"${pageContext.servletContext.contextPath}/fittingSpecialtyCate/fittingSpecialtyJump"},
+							{"text":"/"}
+						]
+					},
+					{"text":"租赁服务","href":"./construction.html","child":
+						[
+							{"text":"产品滚动管理","href":"${pageContext.servletContext.contextPath}/lease/scrollListJump"},
+							{"text":"/"},
+							{"text":"租赁服务简介","href":"${pageContext.servletContext.contextPath}/lease/leaseDescJump"},
+							{"text":"/"}
+						]
+					},
+					{"text":"维修服务","href":"./construction.html","child":
+						[
+							{"text":"服务承诺","href":"${pageContext.servletContext.contextPath}/service/pledgeJump"},
+							{"text":"服务方式","href":"${pageContext.servletContext.contextPath}/service/modeJump"},
+							{"text":"服务范围","href":"${pageContext.servletContext.contextPath}/service/rangeJump"},
+							{"text":"维修设备种类","href":"${pageContext.servletContext.contextPath}/service/categoryJump"},
+							{"text":"维修报告单","href":"${pageContext.servletContext.contextPath}/service/reportJump"},
+							{"text":"/"}
+					    ]
+					},
+					{"text":"新闻资讯","child":"","href":"./construction.html","child":
+						[
+							{"text":"新闻资讯","href":"${pageContext.servletContext.contextPath}/news/newsJump"},
+							{"text":"/"}
+					    ]
+					},
+					{"text":"学习中心","href":"./construction.html","child":
+						[
+							{"text":"维护文档库","href":"${pageContext.servletContext.contextPath}/learn/learnJump"},
+							{"text":"/"},
+							{"text":"维护类别","href":"${pageContext.servletContext.contextPath}/majorCategory/majorJump"},
+							{"text":"文档类别","href":"${pageContext.servletContext.contextPath}/smallCategory/smallJump"},
+							{"text":"/"}
+						]
+					},
+					{"text":"关于金嵘","href":"./construction.html","child":
+						[
+							{"text":"公司信息","href":"${pageContext.servletContext.contextPath}/company/companyJump"},
+							{"text":"/"},
+							{"text":"客户目录","href":"${pageContext.servletContext.contextPath}/customerController/customerJump"},
+							{"text":"/"},
+							{"text":"关于金嵘","href":"${pageContext.servletContext.contextPath}/aboutdesc/aboutdescJump"},
+							{"text":"发展历程","href":"${pageContext.servletContext.contextPath}/growingProcess/growingProcessJump"},
+							{"text":"金嵘团队","href":"${pageContext.servletContext.contextPath}/team/teamJump"},
+							{"text":"员工管理","href":"${pageContext.servletContext.contextPath}/employee/employeeJump"},
+							{"text":"/"}
+						]
+					},
+					{"text":"会员管理","href":"./construction.html","child":
+						[
+							{"text":"文档权限管理","href":"${pageContext.servletContext.contextPath}/roleDocument/roledocJump"},
+							{"text":"会员管理","href":"${pageContext.servletContext.contextPath}/member/memberJump"}
+						]
+					},
+					{"text":"系统管理","href":"./construction.html","child":
+						[
+							{"text":"角色管理","href":"${pageContext.servletContext.contextPath}/role/roleJump"},
+							{"text":"角色菜单","href":"${pageContext.servletContext.contextPath}/rolemenu/rolemenuJump"},
+							{"text":"角色读写","href":"${pageContext.servletContext.contextPath}/rolemenu/rolerwJump"}
+						]
+					}
+				   ];	
